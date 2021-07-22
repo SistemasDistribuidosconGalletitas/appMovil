@@ -42,10 +42,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void iniciarSesion(boolean status) {
         if(status){
-            //Intent intent = new Intent(LoginActivity.this, RecetaActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "Bienvenido al sistema", Toast.LENGTH_SHORT).show();
-            //finish();
+            finish();
         }else{
             Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_SHORT).show();
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.example.appssm.base.AppDataBase;
+import com.example.appssm.domain.model.Medicamento;
+import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
 
 import java.util.List;
@@ -35,5 +37,23 @@ public class Repository {
 
     public Usuario getUsuario() {
         return db.usuariosDao().getUsuario();
+    }
+
+    public void insertRecetaLocalDb(Receta receta){
+        db.recetaDao().insert(receta);
+    }
+
+    public List<Receta> getAllRecetas(){
+        return db.recetaDao().getAllRecetas();
+    }
+    public Receta getReceta(int id_receta){
+        return db.recetaDao().getReceta(id_receta);
+    }
+
+    public void insertMedicamentoLocalDb(Medicamento medicamento){
+        db.medicamentoDao().insert(medicamento);
+    }
+    public List<Medicamento> getAllMedicamentos(int id_receta){
+        return db.medicamentoDao().getAllMedicamentos(id_receta);
     }
 }

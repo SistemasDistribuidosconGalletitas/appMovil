@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         repository = new Repository(getApplicationContext());
-        insertUserTest();
+        //insertUserTest();
 
         login_email = (EditText) findViewById(R.id.login_email);
         login_contrasena = (EditText) findViewById(R.id.login_contrasena);
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                     "2021-07-22", "2021-07-25", 1, "pastilla", "09:00", 6, "10", 1, false, 1));
             repository.insertMedicamentoLocalDb(new Medicamento(1,1,"Gentamicina",
                     "2021-07-22", "2021-07-25", 1, "inyeccion", "12:00", 24, "10", 1, false, 1));
-           
+
             finish();
         }else{
             Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_SHORT).show();
@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkUserAndPass(String userName, String pass) {
+        insertUserTest();
         Usuario usuario = repository.checkInformationUser(userName, pass);
         iniciarSesion(usuario != null);
     }

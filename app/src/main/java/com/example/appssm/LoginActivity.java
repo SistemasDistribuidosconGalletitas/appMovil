@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appssm.domain.model.Medicamento;
+import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
 import com.example.appssm.domain.repository.Repository;
 
@@ -45,6 +47,15 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
             startActivity(intent);
             Toast.makeText(this, "Bienvenido al sistema", Toast.LENGTH_SHORT).show();
+
+            repository.insertRecetaLocalDb(new Receta(1, "Dr. Simi", "2021-07-22", "2021-07-22", "2021-07-30"));
+            repository.insertMedicamentoLocalDb(new Medicamento(1,1,"Naproxeno",
+                    "2021-07-22", "2021-07-25", 1, "pastilla", "08:00", 8, "10", 1, false, 1));
+            repository.insertMedicamentoLocalDb(new Medicamento(1,1,"Paracetamol",
+                    "2021-07-22", "2021-07-25", 1, "pastilla", "09:00", 6, "10", 1, false, 1));
+            repository.insertMedicamentoLocalDb(new Medicamento(1,1,"Gentamicina",
+                    "2021-07-22", "2021-07-25", 1, "inyeccion", "12:00", 24, "10", 1, false, 1));
+           
             finish();
         }else{
             Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_SHORT).show();

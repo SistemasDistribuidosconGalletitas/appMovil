@@ -5,14 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_app"
-    tools:context=".RecetasActivity">
+    tools:context=".MedicamentosActivity">
 
-    <Button
-        android:id="@+id/btn_med"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Med"
-        tools:layout_editor_absoluteX="275dp"
-        tools:layout_editor_absoluteY="631dp"
-        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Appssm">
-        <activity android:name=".RecetasActivity"></activity>
+        <activity android:name=".MedicamentosActivity"></activity>
+        <activity android:name=".RecetasActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

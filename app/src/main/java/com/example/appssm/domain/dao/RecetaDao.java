@@ -4,6 +4,7 @@ package com.example.appssm.domain.dao;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.appssm.domain.model.Receta;
 
@@ -23,4 +24,16 @@ public interface RecetaDao {
     //Insert Receta test
     @Insert
     Long insert (Receta receta);
+
+    @Update
+    public void updateReceta(Receta receta);
+
+    default void insertOrUpdate(Receta receta){
+        List<Receta> itemsReceta = getAllRecetas();
+        if(itemsReceta.isEmpty()){
+            insert(receta);
+        }else{
+            updateReceta(receta);
+        }
+    }
 }

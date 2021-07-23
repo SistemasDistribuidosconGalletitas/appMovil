@@ -28,7 +28,9 @@ public class Repository {
     }
 
     public void insertUserLocalDb(Usuario usuario){
-        db.usuariosDao().insert(usuario);
+
+       // db.usuariosDao().insert(usuario);
+        db.usuariosDao().insertOrUpdate(usuario);
     }
 
     public List<Usuario> getAllUsers(){
@@ -40,7 +42,9 @@ public class Repository {
     }
 
     public void insertRecetaLocalDb(Receta receta){
-        db.recetaDao().insert(receta);
+
+        //db.recetaDao().insert(receta);
+        db.recetaDao().updateReceta(receta);
     }
 
     public List<Receta> getAllRecetas(){
@@ -51,9 +55,10 @@ public class Repository {
     }
 
     public void insertMedicamentoLocalDb(Medicamento medicamento){
-        db.medicamentoDao().insert(medicamento);
+       // db.medicamentoDao().insert(medicamento);
+        db.medicamentoDao().insertOrUpdate(medicamento);
     }
     public List<Medicamento> getAllMedicamentos(int id_receta){
-        return db.medicamentoDao().getAllMedicamentos(id_receta);
+        return db.medicamentoDao().getAllMedicamentosById(id_receta);
     }
 }

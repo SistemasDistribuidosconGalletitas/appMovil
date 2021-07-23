@@ -3,6 +3,7 @@ package com.example.appssm.domain.dao;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.appssm.domain.model.Usuario;
 
@@ -23,5 +24,16 @@ public interface UsuarioDao {
 
     //Insert User test
     @Insert
-    Long insert (Usuario usuarios);
+    Long insert (Usuario usuario);
+
+    @Update
+    public void updateUsers(Usuario usuario);
+
+    default void insertOrUpdate(Usuario usuario) {
+        List<Usuario> itemsFromDB = getAll();
+        if (itemsFromDB.isEmpty())
+            insert(usuario);
+        else
+            updateUsers(usuario);
+    }
 }

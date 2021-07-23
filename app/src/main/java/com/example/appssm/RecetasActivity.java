@@ -30,7 +30,6 @@ public class RecetasActivity extends AppCompatActivity {
             Intent intent = new Intent(RecetasActivity.this, MedicamentosActivity.class);
             startActivity(intent);
             Toast.makeText(this, "Activity de Medicamentos", Toast.LENGTH_SHORT).show();
-            finish();
-
+            //finish();
     }
 }

@@ -26,7 +26,7 @@ public class MedicamentosActivity extends AppCompatActivity {
     private void regresarReceta(){
         Intent intent = new Intent(MedicamentosActivity.this, RecetasActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
 
     }
 }

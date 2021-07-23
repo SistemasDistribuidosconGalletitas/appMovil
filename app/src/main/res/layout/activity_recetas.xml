@@ -57,6 +57,18 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/iconoPaciente"
             app:layout_constraintStart_toEndOf="@id/iconoPaciente" />
+
+        <TextView
+            android:id="@+id/pacienteRecetas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Recetas:"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/bloque_top"
+            app:layout_constraintStart_toStartOf="@id/bloque_top"
+            app:layout_constraintTop_toBottomOf="@+id/iconoPaciente" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
@@ -64,6 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:onClick="ejemplo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bloque_top">
         <androidx.constraintlayout.widget.ConstraintLayout

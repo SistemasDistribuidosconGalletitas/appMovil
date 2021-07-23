@@ -7,12 +7,407 @@
     android:background="@drawable/fondo_app"
     tools:context=".RecetasActivity">
 
-    <Button
-        android:id="@+id/btn_med"
-        android:layout_width="wrap_content"
+    <!--    <fragment-->
+    <!--        android:id="@+id/receta_fragment"-->
+    <!--        android:name="com.example.appssm.ui.fragment.RecetaFragment"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bloque_top"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iconoPaciente"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icono_paciente" />
+
+        <TextView
+            android:id="@+id/bienvenido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Bienvenido"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/iconoPaciente"
+            app:layout_constraintTop_toTopOf="@id/iconoPaciente" />
+
+        <TextView
+            android:id="@+id/pacienteNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="Nombre del paciente"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/iconoPaciente"
+            app:layout_constraintStart_toEndOf="@id/iconoPaciente" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Med"
-        tools:layout_editor_absoluteX="275dp"
-        tools:layout_editor_absoluteY="631dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bloque_top">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/numero_receta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Receta #"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/receta_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="1"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/numero_receta"
+                app:layout_constraintTop_toTopOf="@id/numero_receta" />
+
+            <TextView
+                android:id="@+id/receta_periodo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Período:"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@+id/receta_fecha_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="13/04/2021"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_periodo"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@+id/periodo_guion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="-"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_fecha_inicio"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@+id/receta_fecha_fin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="13/05/2021"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/periodo_guion"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@+id/receta_medicamentos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Cantidad de medicamentos:"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receta_periodo" />
+
+            <TextView
+                android:id="@+id/medicamentos_cantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="3"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_medicamentos"
+                app:layout_constraintTop_toBottomOf="@+id/receta_fecha_fin" />
+
+            <ImageView
+                android:id="@+id/item_receta_imagen"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icono_receta"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/numero_receta" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card1">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@id/numero_receta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Receta #"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@id/receta_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="2"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/numero_receta"
+                app:layout_constraintTop_toTopOf="@id/numero_receta" />
+
+            <TextView
+                android:id="@id/receta_periodo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Período:"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@id/receta_fecha_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="13/04/2021"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_periodo"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@id/periodo_guion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="-"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_fecha_inicio"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@id/receta_fecha_fin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="13/05/2021"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/periodo_guion"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@id/receta_medicamentos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Cantidad de medicamentos:"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receta_periodo" />
+
+            <TextView
+                android:id="@id/medicamentos_cantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="5"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_medicamentos"
+                app:layout_constraintTop_toBottomOf="@+id/receta_fecha_fin" />
+
+            <ImageView
+                android:id="@id/item_receta_imagen"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icono_receta"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/numero_receta" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card2">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@id/numero_receta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Receta #"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@id/receta_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="3"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/numero_receta"
+                app:layout_constraintTop_toTopOf="@id/numero_receta" />
+
+            <TextView
+                android:id="@id/receta_periodo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Período:"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@id/receta_fecha_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="13/04/2021"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_periodo"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@id/periodo_guion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="-"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_fecha_inicio"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@id/receta_fecha_fin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="13/05/2021"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/periodo_guion"
+                app:layout_constraintTop_toBottomOf="@id/receta_id" />
+
+            <TextView
+                android:id="@id/receta_medicamentos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Cantidad de medicamentos:"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receta_periodo" />
+
+            <TextView
+                android:id="@id/medicamentos_cantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="1"
+                android:textColor="@color/azul_oscuro"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/receta_medicamentos"
+                app:layout_constraintTop_toBottomOf="@+id/receta_fecha_fin" />
+
+            <ImageView
+                android:id="@id/item_receta_imagen"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icono_receta"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/numero_receta" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_med"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Med"-->
+<!--        tools:ignore="MissingConstraints"-->
+<!--        tools:layout_editor_absoluteX="16dp"-->
+<!--        tools:layout_editor_absoluteY="110dp" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

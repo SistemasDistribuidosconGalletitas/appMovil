@@ -86,111 +86,108 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/numero_receta"
+                    android:id="@+id/medicamento_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Receta #"
+                    android:text="Medicamento X"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/receta_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="1"
-                    android:textColor="@color/azul_oscuro"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/numero_receta"
-                    app:layout_constraintTop_toTopOf="@id/numero_receta" />
-
-                <TextView
-                    android:id="@+id/receta_periodo"
+                    android:id="@+id/medicamento_aplicacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Período:"
+                    android:layout_marginTop="8dp"
+                    android:text="Próxima dosis:"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_nombre" />
 
                 <TextView
-                    android:id="@+id/receta_fecha_inicio"
+                    android:id="@+id/aplicacion_horario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="13/04/2021"
+                    android:layout_marginTop="8dp"
+                    android:text="4:00pm"
                     android:textColor="@color/azul_oscuro"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/receta_periodo"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toEndOf="@id/medicamento_aplicacion"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_nombre" />
 
                 <TextView
-                    android:id="@+id/periodo_guion"
+                    android:id="@+id/medicamento_intervalo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="-"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Intervalo:"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/receta_fecha_inicio"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_aplicacion" />
 
                 <TextView
-                    android:id="@+id/receta_fecha_fin"
+                    android:id="@+id/intervalo_hrs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="13/05/2021"
+                    android:layout_marginTop="8dp"
+                    android:text="8 hrs"
                     android:textColor="@color/azul_oscuro"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/periodo_guion"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toEndOf="@id/medicamento_intervalo"
+                    app:layout_constraintTop_toBottomOf="@id/aplicacion_horario" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/receta_medicamentos"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:text="Cantidad de medicamentos:"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/receta_periodo" />-->
+                <TextView
+                    android:id="@+id/medicamento_cantidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Cantidad:"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/intervalo_hrs"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_aplicacion" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/medicamentos_cantidad"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:text="3"-->
-<!--                    android:textColor="@color/azul_oscuro"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/receta_medicamentos"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/receta_fecha_fin" />-->
+                <TextView
+                    android:id="@+id/cantidad_tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="2 capsulas"
+                    android:textColor="@color/azul_oscuro"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/medicamento_cantidad"
+                    app:layout_constraintTop_toBottomOf="@id/aplicacion_horario" />
 
                 <ImageView
                     android:id="@+id/item_receta_imagen"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/icono_receta"
+                    android:src="@drawable/icono_med2"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/numero_receta" />
+                    app:layout_constraintTop_toTopOf="@id/medicamento_nombre" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -207,105 +204,101 @@
                 android:layout_marginBottom="16dp">
 
                 <TextView
-                    android:id="@id/numero_receta"
+                    android:id="@+id/medicamento_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Receta #"
+                    android:text="Medicamento X"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@id/receta_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="1"
-                    android:textColor="@color/azul_oscuro"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/numero_receta"
-                    app:layout_constraintTop_toTopOf="@id/numero_receta" />
-
-                <TextView
-                    android:id="@id/receta_periodo"
+                    android:id="@+id/medicamento_aplicacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Período:"
+                    android:layout_marginTop="8dp"
+                    android:text="Próxima dosis:"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_nombre" />
 
                 <TextView
-                    android:id="@id/receta_fecha_inicio"
+                    android:id="@+id/aplicacion_horario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="13/04/2021"
+                    android:layout_marginTop="8dp"
+                    android:text="4:00pm"
                     android:textColor="@color/azul_oscuro"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/receta_periodo"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toEndOf="@id/medicamento_aplicacion"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_nombre" />
 
                 <TextView
-                    android:id="@id/periodo_guion"
+                    android:id="@+id/medicamento_intervalo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="-"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Intervalo:"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/receta_fecha_inicio"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_aplicacion" />
 
                 <TextView
-                    android:id="@id/receta_fecha_fin"
+                    android:id="@+id/intervalo_hrs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="13/05/2021"
+                    android:layout_marginTop="8dp"
+                    android:text="8 hrs"
                     android:textColor="@color/azul_oscuro"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/periodo_guion"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toEndOf="@id/medicamento_intervalo"
+                    app:layout_constraintTop_toBottomOf="@id/aplicacion_horario" />
 
-<!--                <TextView-->
-<!--                    android:id="@id/receta_medicamentos"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:text="Cantidad de medicamentos:"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/receta_periodo" />-->
+                <TextView
+                    android:id="@+id/medicamento_cantidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Cantidad:"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/intervalo_hrs"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_aplicacion" />
 
-<!--                <TextView-->
-<!--                    android:id="@id/medicamentos_cantidad"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:text="3"-->
-<!--                    android:textColor="@color/azul_oscuro"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/receta_medicamentos"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/receta_fecha_fin" />-->
+                <TextView
+                    android:id="@+id/cantidad_tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="2 capsulas"
+                    android:textColor="@color/azul_oscuro"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/medicamento_cantidad"
+                    app:layout_constraintTop_toBottomOf="@id/aplicacion_horario" />
 
                 <ImageView
-                    android:id="@id/item_receta_imagen"
+                    android:id="@+id/item_receta_imagen"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/icono_receta"
+                    android:src="@drawable/icono_med2"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/numero_receta" />
+                    app:layout_constraintTop_toTopOf="@id/medicamento_nombre" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -322,105 +315,101 @@
                 android:layout_marginBottom="16dp">
 
                 <TextView
-                    android:id="@id/numero_receta"
+                    android:id="@+id/medicamento_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Receta #"
+                    android:text="Medicamento X"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@id/receta_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="1"
-                    android:textColor="@color/azul_oscuro"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/numero_receta"
-                    app:layout_constraintTop_toTopOf="@id/numero_receta" />
-
-                <TextView
-                    android:id="@id/receta_periodo"
+                    android:id="@+id/medicamento_aplicacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Período:"
+                    android:layout_marginTop="8dp"
+                    android:text="Próxima dosis:"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_nombre" />
 
                 <TextView
-                    android:id="@id/receta_fecha_inicio"
+                    android:id="@+id/aplicacion_horario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="13/04/2021"
+                    android:layout_marginTop="8dp"
+                    android:text="4:00pm"
                     android:textColor="@color/azul_oscuro"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/receta_periodo"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toEndOf="@id/medicamento_aplicacion"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_nombre" />
 
                 <TextView
-                    android:id="@id/periodo_guion"
+                    android:id="@+id/medicamento_intervalo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="-"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Intervalo:"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/receta_fecha_inicio"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_aplicacion" />
 
                 <TextView
-                    android:id="@id/receta_fecha_fin"
+                    android:id="@+id/intervalo_hrs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="13/05/2021"
+                    android:layout_marginTop="8dp"
+                    android:text="8 hrs"
                     android:textColor="@color/azul_oscuro"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@id/periodo_guion"
-                    app:layout_constraintTop_toBottomOf="@id/receta_id" />
+                    app:layout_constraintStart_toEndOf="@id/medicamento_intervalo"
+                    app:layout_constraintTop_toBottomOf="@id/aplicacion_horario" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/receta_medicamentos"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:text="Cantidad de medicamentos:"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/receta_periodo" />-->
+                <TextView
+                    android:id="@+id/medicamento_cantidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Cantidad:"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/intervalo_hrs"
+                    app:layout_constraintTop_toBottomOf="@id/medicamento_aplicacion" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/medicamentos_cantidad"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:text="3"-->
-<!--                    android:textColor="@color/azul_oscuro"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/receta_medicamentos"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/receta_fecha_fin" />-->
+                <TextView
+                    android:id="@+id/cantidad_tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="2 capsulas"
+                    android:textColor="@color/azul_oscuro"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/medicamento_cantidad"
+                    app:layout_constraintTop_toBottomOf="@id/aplicacion_horario" />
 
                 <ImageView
-                    android:id="@id/item_receta_imagen"
+                    android:id="@+id/item_receta_imagen"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/icono_receta"
+                    android:src="@drawable/icono_med2"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/numero_receta" />
+                    app:layout_constraintTop_toTopOf="@id/medicamento_nombre" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="Medicamento X"
+            android:text="@string/medicamento_nombre"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,14 +30,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Próxima dosis:"
+            android:text="@string/medicamento_horario"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/medicamento_nombre" />
 
         <TextView
-            android:id="@+id/aplicacion_horario"
+            android:id="@+id/medicamento_hora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -54,14 +54,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Intervalo:"
+            android:text="@string/medicamento_intervalo"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/medicamento_aplicacion" />
 
         <TextView
-            android:id="@+id/intervalo_hrs"
+            android:id="@+id/medicamento_intervalo_hrs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -70,7 +70,7 @@
             android:textColor="@color/azul_oscuro"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/medicamento_intervalo"
-            app:layout_constraintTop_toBottomOf="@id/aplicacion_horario" />
+            app:layout_constraintTop_toBottomOf="@id/medicamento_hora" />
 
         <TextView
             android:id="@+id/medicamento_cantidad"
@@ -78,14 +78,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Cantidad:"
+            android:text="@string/medicamento_dosis"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/intervalo_hrs"
+            app:layout_constraintStart_toEndOf="@id/medicamento_intervalo_hrs"
             app:layout_constraintTop_toBottomOf="@id/medicamento_aplicacion" />
 
         <TextView
-            android:id="@+id/cantidad_tipo"
+            android:id="@+id/medicamento_dosis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -94,7 +94,7 @@
             android:textColor="@color/azul_oscuro"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/medicamento_cantidad"
-            app:layout_constraintTop_toBottomOf="@id/aplicacion_horario" />
+            app:layout_constraintTop_toBottomOf="@id/medicamento_hora" />
 
         <ImageView
             android:id="@+id/item_receta_imagen"

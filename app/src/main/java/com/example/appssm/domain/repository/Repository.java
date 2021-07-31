@@ -15,7 +15,6 @@ public class Repository {
 
     private final AppDataBase db;
 
-
     public Repository(Context context) {
         db = Room.databaseBuilder(context, AppDataBase.class, "appssmdb")
                 .allowMainThreadQueries()
@@ -28,7 +27,6 @@ public class Repository {
     }
 
     public void insertUserLocalDb(Usuario usuario){
-
        // db.usuariosDao().insert(usuario);
         db.usuariosDao().insertOrUpdate(usuario);
     }
@@ -42,9 +40,8 @@ public class Repository {
     }
 
     public void insertRecetaLocalDb(Receta receta){
-
-        //db.recetaDao().insert(receta);
-        db.recetaDao().updateReceta(receta);
+        db.recetaDao().insert(receta);
+//        db.recetaDao().updateReceta(receta);
     }
 
     public List<Receta> getAllRecetas(){
@@ -55,10 +52,15 @@ public class Repository {
     }
 
     public void insertMedicamentoLocalDb(Medicamento medicamento){
-       // db.medicamentoDao().insert(medicamento);
-        db.medicamentoDao().insertOrUpdate(medicamento);
+        db.medicamentoDao().insert(medicamento);
+//        db.medicamentoDao().insertOrUpdate(medicamento);
     }
-    public List<Medicamento> getAllMedicamentos(int id_receta){
+
+    public List<Medicamento> getAllMedicamentosByReceta(int id_receta){
         return db.medicamentoDao().getAllMedicamentosById(id_receta);
+    }
+
+    public List<Medicamento> getAllMedicamentos(){
+        return db.medicamentoDao().getAllMedicamentos();
     }
 }

@@ -1,37 +1,35 @@
 package com.example.appssm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.appssm.domain.repository.Repository;
+import com.example.appssm.adapter.RecetaAdapter;
 
 import java.util.Objects;
 
 public class RecetasActivity extends AppCompatActivity {
 
-//    Button btn_med;
+    RecyclerView recyclerView;
+    RecetaAdapter adapter;
+    Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recetas);
-//        setContentView(R.layout.fragment_receta);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-//        btn_med = (Button) findViewById(R.id.btn_med);
-//        btn_med.setOnClickListener(v ->
-//                ejemlo()
-//        );
+        recyclerView = findViewById(R.id.rv_receta);
+        repository = new Repository(getApplicationContext());
+        adapter = new RecetaAdapter(repository.getAllRecetas());
+        recyclerView.setAdapter(adapter);
     }
 
-    public void ejemplo(View v) {
-
-            Intent intent = new Intent(RecetasActivity.this, MedicamentosActivity.class);
-            startActivity(intent);
-            Toast.makeText(this, "Activity de Medicamentos", Toast.LENGTH_SHORT).show();
-            //finish();
-    }
 }

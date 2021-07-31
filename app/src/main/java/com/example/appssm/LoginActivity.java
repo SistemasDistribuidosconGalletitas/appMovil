@@ -1,21 +1,17 @@
 package com.example.appssm;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appssm.domain.model.Medicamento;
 import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
 import com.example.appssm.domain.repository.Repository;
-import com.example.appssm.ui.fragment.RecetaFragment;
 
 import java.util.Objects;
 
@@ -50,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Bienvenido al sistema", Toast.LENGTH_SHORT).show();
 
             repository.insertRecetaLocalDb(new Receta(1, "Dr. Simi", "2021-07-22", "2021-07-22", "2021-07-30"));
+            repository.insertRecetaLocalDb(new Receta(2, "Dr. h", "2021-07-22", "2021-07-22", "2021-07-30"));
+            repository.insertRecetaLocalDb(new Receta(3, "Dr. g", "2021-07-22", "2021-07-22", "2021-07-30"));
             repository.insertMedicamentoLocalDb(new Medicamento(1, 1, "Naproxeno",
                     "2021-07-22", "2021-07-25", 1, "pastilla", "08:00", 8, "10", 1, false, 1));
             repository.insertMedicamentoLocalDb(new Medicamento(1, 1, "Paracetamol",

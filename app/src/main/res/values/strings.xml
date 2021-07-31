@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AppSSM</string>
+    <string name="medicamento_dosis">Dosis:</string>
+    <string name="medicamento_intervalo">Intervalo:</string>
+    <string name="medicamento_horario">Horario:</string>
+    <string name="medicamento_nombre">Medicamento Nombre</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.appssm.ui.adapter;
+package com.example.appssm.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +41,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecetaAdapter.ViewHolder holder, int position) {
-        holder.id.setText(recetaList.get(position).getId_receta());
+        holder.id.setText(String.valueOf(recetaList.get(position).getId_receta()));
         holder.fechaInicio.setText(recetaList.get(position).getFecha_inicio());
         holder.fechaFin.setText(recetaList.get(position).getFecha_fin());
 //        holder.cantidadMedicamentos.setText(recetaList.get(position).getCantidad_medicamentos());

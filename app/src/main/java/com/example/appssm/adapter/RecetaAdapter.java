@@ -1,5 +1,7 @@
 package com.example.appssm.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appssm.MedicamentosActivity;
 import com.example.appssm.R;
 import com.example.appssm.domain.model.Receta;
 
@@ -91,10 +94,12 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         private TextView id;
         private TextView fechaInicio;
         private TextView fechaFin;
+        private final Context context;
 //        private TextView cantidadMedicamentos;
 
         public ViewHolder(View view) {
             super(view);
+            context = view.getContext();
 
             // Define click listener for the ViewHolder's View
             id=(TextView) view.findViewById(R.id.receta_id);

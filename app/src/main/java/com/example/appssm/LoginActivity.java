@@ -50,9 +50,9 @@ public class LoginActivity extends AppCompatActivity {
             repository.insertRecetaLocalDb(new Receta(3, "Dr. g", "2021-07-22", "2021-07-22", "2021-07-30"));
             repository.insertMedicamentoLocalDb(new Medicamento(1, 1, "Naproxeno",
                     "2021-07-22", "2021-07-25", 1, "pastilla", "08:00", 8, "10", 1, false, 1));
-            repository.insertMedicamentoLocalDb(new Medicamento(1, 1, "Paracetamol",
+            repository.insertMedicamentoLocalDb(new Medicamento(2, 2, "Paracetamol",
                     "2021-07-22", "2021-07-25", 1, "pastilla", "09:00", 6, "10", 1, false, 1));
-            repository.insertMedicamentoLocalDb(new Medicamento(1, 1, "Gentamicina",
+            repository.insertMedicamentoLocalDb(new Medicamento(3, 1, "Gentamicina",
                     "2021-07-22", "2021-07-25", 1, "inyeccion", "12:00", 24, "10", 1, false, 1));
 
             finish();

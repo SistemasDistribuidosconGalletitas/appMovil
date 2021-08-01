@@ -16,10 +16,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.appssm.domain.model.Medicamento;
+import com.example.appssm.domain.model.Usuario;
 import com.example.appssm.domain.repository.Repository;
 import com.example.appssm.adapter.MedicamentoAdapter;
 import com.example.appssm.notificacion.AlertReceiver;
@@ -36,7 +38,7 @@ public class MedicamentosActivity extends AppCompatActivity {
     MedicamentoAdapter adapter;
     Repository repository;
     private List<Medicamento> list;
-
+    TextView pacienteNombre;
     private int recetaId;
 
 
@@ -55,7 +57,9 @@ public class MedicamentosActivity extends AppCompatActivity {
         Toast.makeText(this, "Receta: "+id, Toast.LENGTH_SHORT).show();
         recetaId = id;
 
-
+        Usuario usuario = repository.getUsuario();
+        pacienteNombre = (TextView) findViewById(R.id.paciente_nombre);
+        pacienteNombre.setText(usuario.getNombrePaciente());
         list = new ArrayList();
        // list = repository.getAllMedicamentosByReceta(recetaId);
         list = repository.getAllMedicamentos();
@@ -75,7 +79,7 @@ public class MedicamentosActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String title = list.get(recyclerView.getChildAdapterPosition(view)).getNombre();
                 String hora = list.get(recyclerView.getChildAdapterPosition(view)).getHoraAplicacion();
-                onTimeSet(23,46);
+                onTimeSet(01,45);
 //                sendNotification(title,hora);
             }
         });

@@ -2,10 +2,12 @@ package com.example.appssm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText login_email, login_contrasena;
     Button btn_login;
     private Repository repository;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,27 +82,50 @@ public class LoginActivity extends AppCompatActivity {
 
     private void iniciarSesion(boolean status, int id) {
         if (status) {
-            Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
-            startActivity(intent);
 
-            Toast.makeText(this, "Bienvenido al sistema", Toast.LENGTH_SHORT).show();
 
 
 
             findDataBaseWebRecetas(id);
             findDataBaseWebMedicamento();
+            progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.show();
+            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.getWindow().setBackgroundDrawableResource(
+                    android.R.color.transparent
+            );
+//
+//            Handler handler = new Handler();
+//            handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    progressDialog.dismiss();
+//                    Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
+//                    startActivity(intent);
+//
+//                    Toast.makeText(getApplicationContext(), "Bienvenido al sistema", Toast.LENGTH_SHORT).show();
+//                }
+//            }, 3000); // 3000 milliseconds delay
 
-//            repository.insertRecetaLocalDb(new Receta(1, "Dr. Simi", "2021-07-22", "2021-07-22", "2021-07-30"));
-//            repository.insertRecetaLocalDb(new Receta(2, "Dr. h", "2021-07-22", "2021-07-22", "2021-07-30"));
-//            repository.insertRecetaLocalDb(new Receta(3, "Dr. g", "2021-07-22", "2021-07-22", "2021-07-30"));
-//            repository.insertMedicamentoLocalDb(new Medicamento(1, 1, "Naproxeno",
-//                    "2021-07-22", "2021-07-25", 1, "pastilla", "08:00", 8, "10", 1, false, 1));
-//            repository.insertMedicamentoLocalDb(new Medicamento(2, 2, "Paracetamol",
-//                    "2021-07-22", "2021-07-25", 1, "pastilla", "09:00", 6, "10", 1, false, 1));
-//            repository.insertMedicamentoLocalDb(new Medicamento(3, 1, "Gentamicina",
-//                    "2021-07-22", "2021-07-25", 1, "inyeccion", "12:00", 24, "10", 1, false, 1));
+            Runnable r = new Runnable() {
 
-            finish();
+                @Override
+                public void run() {
+                    // if you are redirecting from a fragment then use getActivity() as the context.
+                    Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+            };
+
+
+            Handler h = new Handler();
+            // The Runnable will be executed after the given delay time
+            h.postDelayed(r, 1500); // will be delayed for 1.5 seconds
+
+
+
         } else {
             Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_SHORT).show();
         }

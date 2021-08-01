@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appssm.domain.model.Receta;
+import com.example.appssm.domain.model.Usuario;
 import com.example.appssm.domain.repository.Repository;
 import com.example.appssm.adapter.RecetaAdapter;
 
@@ -24,6 +26,7 @@ public class RecetasActivity extends AppCompatActivity {
     RecetaAdapter adapter;
     Repository repository;
     private List<Receta> list;
+    TextView pacienteNombre;
 
 
 
@@ -39,7 +42,10 @@ public class RecetasActivity extends AppCompatActivity {
         list = new ArrayList();
         list = repository.getAllRecetas();
         adapter = new RecetaAdapter(list);
+        pacienteNombre = (TextView) findViewById(R.id.pacienteNombre);
 
+        Usuario usuario = repository.getUsuario();
+        pacienteNombre.setText(usuario.getNombrePaciente());
 
         adapter.setOnClickListener(new View.OnClickListener() {
 

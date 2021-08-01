@@ -19,7 +19,7 @@ public interface UsuarioDao {
     Usuario getUsuario();
 
     //Check Pass and user
-    @Query("SELECT * FROM Usuario WHERE correo_electronico IN (:userName) AND password IN (:pass)")
+    @Query("SELECT * FROM Usuario WHERE nombreUsuario IN (:userName) AND contrasenia IN (:pass)")
     Usuario validateInfo(String userName, String pass);
 
     //Insert User test

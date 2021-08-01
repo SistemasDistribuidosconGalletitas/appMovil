@@ -8,61 +8,75 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Usuario {
-    @PrimaryKey
-    @ColumnInfo(name = "id_usuario")
-    private int id_usuario;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_usuarioMovil")
+    private int id_usuarioMovil;
 
-    @ColumnInfo(name = "nombre_usuario")
-    private String nombre;
+    @ColumnInfo(name = "id")
+    private int id;
 
-    @ColumnInfo(name = "correo_electronico")
-    private String correo_electronico;
+    @ColumnInfo(name = "nombrePaciente")
+    private String nombrePaciente;
 
-    @ColumnInfo(name = "password")
-    private String pass;
+    @ColumnInfo(name = "correoElectronico")
+    private String correoElectronico;
+
+    @ColumnInfo(name = "contrasenia")
+    private String contrasenia;
 
     @ColumnInfo(name = "telefono")
     private String telefono;
 
-    public Usuario (int id_usuario, String nombre, String correo_electronico, String pass, String telefono){
-        this.id_usuario = id_usuario;
-        this.nombre = nombre;
-        this.correo_electronico = correo_electronico;
-        this.pass = pass;
+    @ColumnInfo(name = "nombreUsuario")
+    private String nombreUsuario;
+
+    public Usuario(int id, String nombrePaciente, String correoElectronico, String contrasenia, String telefono, String nombreUsuario) {
+        this.id = id;
+        this.nombrePaciente = nombrePaciente;
+        this.correoElectronico = correoElectronico;
+        this.contrasenia = contrasenia;
         this.telefono = telefono;
-
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public int getId_usuarioMovil() {
+        return id_usuarioMovil;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setId_usuarioMovil(int id_usuarioMovil) {
+        this.id_usuarioMovil = id_usuarioMovil;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getCorreo_electronico() {
-        return correo_electronico;
+    public String getNombrePaciente() {
+        return nombrePaciente;
     }
 
-    public void setCorreo_electronico(String correo_electronico) {
-        this.correo_electronico = correo_electronico;
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
     }
 
-    public String getPass() {
-        return pass;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     public String getTelefono() {
@@ -73,17 +87,24 @@ public class Usuario {
         this.telefono = telefono;
     }
 
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
-                "id_usuario=" + id_usuario +
-                ", nombre='" + nombre + '\'' +
-                ", correo_electronico='" + correo_electronico + '\'' +
-                ", pass='" + pass + '\'' +
+                "id_usuarioMovil=" + id_usuarioMovil +
+                ", id=" + id +
+                ", nombrePaciente='" + nombrePaciente + '\'' +
+                ", correoElectronico='" + correoElectronico + '\'' +
+                ", contrasenia='" + contrasenia + '\'' +
                 ", telefono='" + telefono + '\'' +
+                ", nombreUsuario='" + nombreUsuario + '\'' +
                 '}';
     }
-
-
-
 }

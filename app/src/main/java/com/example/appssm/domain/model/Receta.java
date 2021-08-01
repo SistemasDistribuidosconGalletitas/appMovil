@@ -1,6 +1,5 @@
 package com.example.appssm.domain.model;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -33,13 +32,13 @@ public class Receta {
     @ColumnInfo(name = "vigencia")
     private boolean vigencia;
 
-    public Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia) {
+    public Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, int paciente, String nombreMedico, boolean vigencia) {
         this.idReceta = idReceta;
         this.fechaConsulta = fechaConsulta;
         this.recetafechaInicio = recetafechaInicio;
         this.recetafechaFin = recetafechaFin;
-        this.nombreMedico = nombreMedico;
         this.paciente = paciente;
+        this.nombreMedico = nombreMedico;
         this.vigencia = vigencia;
     }
 

@@ -8,28 +8,39 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Receta {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_receta")
     private int id_receta;
 
-    @ColumnInfo(name = "nombre_medico")
-    private String nombre;
+    @ColumnInfo(name = "idReceta")
+    private int idReceta;
 
     @ColumnInfo(name = "fechaConsulta")
-    private String fecha_consulta;
+    private String fechaConsulta;
 
-    @ColumnInfo(name = "fechaInicio")
-    private String fecha_inicio;
+    @ColumnInfo(name = "recetafechaInicio")
+    private String recetafechaInicio;
 
-    @ColumnInfo(name = "fechaFin")
-    private String fecha_fin;
+    @ColumnInfo(name = "recetafechaFin")
+    private String recetafechaFin;
 
-    public Receta(int id_receta, String nombre, String fecha_consulta, String fecha_inicio, String fecha_fin) {
-        this.id_receta = id_receta;
-        this.nombre = nombre;
-        this.fecha_consulta = fecha_consulta;
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_fin = fecha_fin;
+    @ColumnInfo(name = "nombreMedico")
+    private String nombreMedico;
+
+    @ColumnInfo(name = "paciente")
+    private int paciente;
+
+    @ColumnInfo(name = "vigencia")
+    private boolean vigencia;
+
+    public Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia) {
+        this.idReceta = idReceta;
+        this.fechaConsulta = fechaConsulta;
+        this.recetafechaInicio = recetafechaInicio;
+        this.recetafechaFin = recetafechaFin;
+        this.nombreMedico = nombreMedico;
+        this.paciente = paciente;
+        this.vigencia = vigencia;
     }
 
     public int getId_receta() {
@@ -40,46 +51,59 @@ public class Receta {
         this.id_receta = id_receta;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getIdReceta() {
+        return idReceta;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdReceta(int idReceta) {
+        this.idReceta = idReceta;
     }
 
-    public String getFecha_consulta() {
-        return fecha_consulta;
+    public String getFechaConsulta() {
+        return fechaConsulta;
     }
 
-    public void setFecha_consulta(String fecha_consulta) {
-        this.fecha_consulta = fecha_consulta;
+    public void setFechaConsulta(String fechaConsulta) {
+        this.fechaConsulta = fechaConsulta;
     }
 
-    public String getFecha_inicio() {
-        return fecha_inicio;
+    public String getRecetafechaInicio() {
+        return recetafechaInicio;
     }
 
-    public void setFecha_inicio(String fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
+    public void setRecetafechaInicio(String recetafechaInicio) {
+        this.recetafechaInicio = recetafechaInicio;
     }
 
-    public String getFecha_fin() {
-        return fecha_fin;
+    public String getRecetafechaFin() {
+        return recetafechaFin;
     }
 
-    public void setFecha_fin(String fecha_fin) {
-        this.fecha_fin = fecha_fin;
+    public void setRecetafechaFin(String recetafechaFin) {
+        this.recetafechaFin = recetafechaFin;
     }
 
-    @Override
-    public String toString() {
-        return "Receta{" +
-                "id_receta=" + id_receta +
-                ", nombre='" + nombre + '\'' +
-                ", fecha_consulta='" + fecha_consulta + '\'' +
-                ", fecha_inicio='" + fecha_inicio + '\'' +
-                ", fecha_fin='" + fecha_fin + '\'' +
-                '}';
+    public String getNombreMedico() {
+        return nombreMedico;
+    }
+
+    public void setNombreMedico(String nombreMedico) {
+        this.nombreMedico = nombreMedico;
+    }
+
+    public int getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(int paciente) {
+        this.paciente = paciente;
+    }
+
+    public boolean isVigencia() {
+        return vigencia;
+    }
+
+    public void setVigencia(boolean vigencia) {
+        this.vigencia = vigencia;
     }
 }

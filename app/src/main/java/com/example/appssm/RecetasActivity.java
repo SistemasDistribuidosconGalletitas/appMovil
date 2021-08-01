@@ -52,9 +52,9 @@ public class RecetasActivity extends AppCompatActivity {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Selección receta: "+list.get(recyclerView.getChildAdapterPosition(view)).getId_receta(),
+                Toast.makeText(getApplicationContext(), "Selección receta: "+list.get(recyclerView.getChildAdapterPosition(view)).getIdReceta(),
                         Toast.LENGTH_LONG).show();
-                int id_receta = list.get(recyclerView.getChildAdapterPosition(view)).getId_receta();
+                int id_receta = list.get(recyclerView.getChildAdapterPosition(view)).getIdReceta();
                 Bundle parmetros = new Bundle();
                 parmetros.putInt("id",id_receta);
                 Intent intent = new Intent(view.getContext(), MedicamentosActivity.class);

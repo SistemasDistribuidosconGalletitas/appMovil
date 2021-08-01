@@ -16,7 +16,7 @@ public interface RecetaDao {
     @Query("SELECt * FROM Receta")
     List<Receta> getAllRecetas();
 
-    @Query("SELECT * FROM Receta WHERE id_receta IN (:idReceta)")
+    @Query("SELECT * FROM Receta WHERE idReceta IN (:idReceta)")
     Receta getReceta(int idReceta);
 
 

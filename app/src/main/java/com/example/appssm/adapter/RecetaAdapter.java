@@ -44,9 +44,10 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecetaAdapter.ViewHolder holder, int position) {
-        holder.id.setText(String.valueOf(recetaList.get(position).getId_receta()));
-        holder.fechaInicio.setText(recetaList.get(position).getFecha_inicio());
-        holder.fechaFin.setText(recetaList.get(position).getFecha_fin());
+        holder.id.setText(String.valueOf(recetaList.get(position).getIdReceta()));
+        holder.fechaInicio.setText(recetaList.get(position).getRecetafechaInicio());
+        holder.fechaFin.setText(recetaList.get(position).getRecetafechaFin());
+        holder.nombreMedico.setText(recetaList.get(position).getNombreMedico());
 //        holder.cantidadMedicamentos.setText(recetaList.get(position).getCantidad_medicamentos());
     }
 
@@ -55,27 +56,27 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         this.listener=listener;
     }
 
-    public void filtrado(String txtBusqueda){
-        int longitud = txtBusqueda.length();
-        if (longitud == 0){
-            recetaList.clear();
-            recetaList.addAll(recetaOriginalList);
-        } else {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                recetaList.clear();
-                List<Receta> collection = recetaOriginalList.stream().filter(i -> i.getNombre().toLowerCase().contains(txtBusqueda.toLowerCase())).collect(Collectors.toList());
-                recetaList.addAll(collection);
-            } else {
-                recetaList.clear();
-                for (Receta c: recetaOriginalList) {
-                    if (c.getNombre().toLowerCase().contains(txtBusqueda.toLowerCase())){
-                        recetaList.add(c);
-                    }
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
+//    public void filtrado(String txtBusqueda){
+//        int longitud = txtBusqueda.length();
+//        if (longitud == 0){
+//            recetaList.clear();
+//            recetaList.addAll(recetaOriginalList);
+//        } else {
+//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+//                recetaList.clear();
+//                List<Receta> collection = recetaOriginalList.stream().filter(i -> i.getNombre().toLowerCase().contains(txtBusqueda.toLowerCase())).collect(Collectors.toList());
+//                recetaList.addAll(collection);
+//            } else {
+//                recetaList.clear();
+//                for (Receta c: recetaOriginalList) {
+//                    if (c.getNombre().toLowerCase().contains(txtBusqueda.toLowerCase())){
+//                        recetaList.add(c);
+//                    }
+//                }
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
 
 
     @Override
@@ -94,6 +95,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         private TextView id;
         private TextView fechaInicio;
         private TextView fechaFin;
+        private TextView nombreMedico;
         private final Context context;
 //        private TextView cantidadMedicamentos;
 
@@ -105,6 +107,7 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
             id=(TextView) view.findViewById(R.id.receta_id);
             fechaInicio=(TextView) view.findViewById(R.id.receta_fecha_inicio);
             fechaFin=(TextView) view.findViewById(R.id.receta_fecha_fin);
+            nombreMedico = (TextView) view.findViewById(R.id.nombre_doctor);
 //            cantidadMedicamentos=(TextView) view.findViewById(R.id.receta_medicamentos);
         }
 

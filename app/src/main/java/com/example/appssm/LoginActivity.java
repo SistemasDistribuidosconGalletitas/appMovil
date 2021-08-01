@@ -15,6 +15,7 @@ import com.example.appssm.domain.model.Medicamento;
 import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
 import com.example.appssm.domain.repository.Repository;
+import com.example.appssm.interfaces.RecetaAPI;
 import com.example.appssm.interfaces.UsuarioAPI;
 
 import java.util.Objects;
@@ -63,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Un dato faltante", Toast.LENGTH_SHORT).show();
                 }else{
                     findDataBaseWeb(login_email.getText().toString(), login_contrasena.getText().toString());
+
+
                     //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString())
 
                 }
@@ -72,16 +75,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void iniciarSesion(boolean status) {
+    private void iniciarSesion(boolean status, int id) {
         if (status) {
             Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
             startActivity(intent);
 
             Toast.makeText(this, "Bienvenido al sistema", Toast.LENGTH_SHORT).show();
 
-            repository.insertRecetaLocalDb(new Receta(1, "Dr. Simi", "2021-07-22", "2021-07-22", "2021-07-30"));
-            repository.insertRecetaLocalDb(new Receta(2, "Dr. h", "2021-07-22", "2021-07-22", "2021-07-30"));
-            repository.insertRecetaLocalDb(new Receta(3, "Dr. g", "2021-07-22", "2021-07-22", "2021-07-30"));
+
+
+            findDataBaseWebRecetas(String.valueOf(id));
+
+//            repository.insertRecetaLocalDb(new Receta(1, "Dr. Simi", "2021-07-22", "2021-07-22", "2021-07-30"));
+//            repository.insertRecetaLocalDb(new Receta(2, "Dr. h", "2021-07-22", "2021-07-22", "2021-07-30"));
+//            repository.insertRecetaLocalDb(new Receta(3, "Dr. g", "2021-07-22", "2021-07-22", "2021-07-30"));
             repository.insertMedicamentoLocalDb(new Medicamento(1, 1, "Naproxeno",
                     "2021-07-22", "2021-07-25", 1, "pastilla", "08:00", 8, "10", 1, false, 1));
             repository.insertMedicamentoLocalDb(new Medicamento(2, 2, "Paracetamol",
@@ -98,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     private void checkUserAndPass(String userName, String pass) {
         //insertUserTest();
         Usuario usuario = repository.checkInformationUser(userName, pass);
-        iniciarSesion(usuario != null);
+        iniciarSesion(usuario != null, usuario.getId());
     }
 
     private void insertUserTest() {
@@ -146,6 +153,33 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void findDataBaseWebRecetas(String id) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+//Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia)
+        RecetaAPI recetaAPI = retrofit.create(RecetaAPI.class);
+        Call<Receta> call = recetaAPI.find(id);
+        call.enqueue(new Callback<Receta>() {
+            @Override
+            public void onResponse(Call<Receta> call, Response<Receta> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Receta p = response.body();
+                        repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getNombreMedico(),p.getPaciente(), p.isVigencia()));
+                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
+                    }
+                } catch (Exception exception) {
+                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Receta> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
             }
         });

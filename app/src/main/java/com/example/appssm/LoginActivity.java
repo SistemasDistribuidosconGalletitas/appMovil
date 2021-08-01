@@ -234,7 +234,7 @@ public class LoginActivity extends AppCompatActivity {
                         for (Medicamento p: medicamentoList){
                             repository.insertMedicamentoLocalDb(new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
                                     p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
-                                    p.getMargenTiempo(), p.getPrioridad()));
+                                    p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
                         }
                         Toast.makeText(LoginActivity.this, "Datos cargados exitosamente medicamento", Toast.LENGTH_SHORT).show();
                         //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());

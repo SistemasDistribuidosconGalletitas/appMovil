@@ -61,8 +61,8 @@ public class MedicamentosActivity extends AppCompatActivity {
         pacienteNombre = (TextView) findViewById(R.id.paciente_nombre);
         pacienteNombre.setText(usuario.getNombrePaciente());
         list = new ArrayList();
-       // list = repository.getAllMedicamentosByReceta(recetaId);
-        list = repository.getAllMedicamentos();
+        list = repository.getAllMedicamentosByReceta(recetaId);
+        //list = repository.getAllMedicamentos();
         adapter = new MedicamentoAdapter(list);
         //adapter = new MedicamentoAdapter(repository.getAllMedicamentos());
 

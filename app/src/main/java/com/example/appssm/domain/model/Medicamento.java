@@ -44,8 +44,11 @@ public class Medicamento {
     @ColumnInfo(name = "prioridad")
     private int prioridad;
 
+    @ColumnInfo(name = "receta")
+    private int receta;
 
-    public Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad) {
+
+    public Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad, int receta) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -57,6 +60,7 @@ public class Medicamento {
         this.intervalo = intervalo;
         this.margenTiempo = margenTiempo;
         this.prioridad = prioridad;
+        this.receta = receta;
     }
 
     public int getId_medicamento() {
@@ -155,6 +159,14 @@ public class Medicamento {
         this.prioridad = prioridad;
     }
 
+    public int getReceta() {
+        return receta;
+    }
+
+    public void setReceta(int receta) {
+        this.receta = receta;
+    }
+
     @Override
     public String toString() {
         return "Medicamento{" +
@@ -170,6 +182,7 @@ public class Medicamento {
                 ", intervalo=" + intervalo +
                 ", margenTiempo='" + margenTiempo + '\'' +
                 ", prioridad=" + prioridad +
+                ", receta=" + receta +
                 '}';
     }
 }

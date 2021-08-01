@@ -57,7 +57,8 @@ public class MedicamentosActivity extends AppCompatActivity {
 
 
         list = new ArrayList();
-        list = repository.getAllMedicamentosByReceta(recetaId);
+       // list = repository.getAllMedicamentosByReceta(recetaId);
+        list = repository.getAllMedicamentos();
         adapter = new MedicamentoAdapter(list);
         //adapter = new MedicamentoAdapter(repository.getAllMedicamentos());
 
@@ -73,10 +74,8 @@ public class MedicamentosActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String title = list.get(recyclerView.getChildAdapterPosition(view)).getNombre();
-                String hora = list.get(recyclerView.getChildAdapterPosition(view)).getHora_aplicacion();
-                onTimeSet(19,41);
-                onTimeSet(19,42);
-                onTimeSet(19,43);
+                String hora = list.get(recyclerView.getChildAdapterPosition(view)).getHoraAplicacion();
+                onTimeSet(23,46);
 //                sendNotification(title,hora);
             }
         });

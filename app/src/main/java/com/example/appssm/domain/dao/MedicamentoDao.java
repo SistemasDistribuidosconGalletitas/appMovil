@@ -12,7 +12,7 @@ import java.util.List;
 @Dao
 public interface MedicamentoDao {
 
-    @Query("SELECt * FROM Medicamento WHERE id_receta IN (:idReceta)")
+    @Query("SELECt * FROM Medicamento WHERE id IN (:idReceta)")
     List<Medicamento> getAllMedicamentosById(int idReceta);
 
     @Query("SELECt * FROM Medicamento ")

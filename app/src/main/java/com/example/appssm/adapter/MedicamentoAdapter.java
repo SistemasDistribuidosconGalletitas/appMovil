@@ -42,7 +42,7 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
     @Override
     public void onBindViewHolder(@NonNull @NotNull MedicamentoAdapter.ViewHolder holder, int position) {
         holder.nombre.setText(String.valueOf(medicamentoList.get(position).getNombre()));
-        holder.hora.setText(String.valueOf(medicamentoList.get(position).getHora_aplicacion()));
+        holder.hora.setText(String.valueOf(medicamentoList.get(position).getHoraAplicacion()));
         holder.intervalo.setText(String.valueOf(medicamentoList.get(position).getIntervalo()));
         holder.dosis.setText(String.valueOf(medicamentoList.get(position).getDosis()));
     }

@@ -15,6 +15,7 @@ import com.example.appssm.domain.model.Medicamento;
 import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
 import com.example.appssm.domain.repository.Repository;
+import com.example.appssm.interfaces.MedicamentoAPI;
 import com.example.appssm.interfaces.RecetaAPI;
 import com.example.appssm.interfaces.UsuarioAPI;
 
@@ -86,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
             findDataBaseWebRecetas(id);
+            findDataBaseWebMedicamento();
 
 //            repository.insertRecetaLocalDb(new Receta(1, "Dr. Simi", "2021-07-22", "2021-07-22", "2021-07-30"));
 //            repository.insertRecetaLocalDb(new Receta(2, "Dr. h", "2021-07-22", "2021-07-22", "2021-07-30"));
@@ -175,6 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                         for (Receta p: recetaList){
                             repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
                         }
+                        Toast.makeText(LoginActivity.this, "Datos cargados exitosamente", Toast.LENGTH_SHORT).show();
                         //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
                     }
                 } catch (Exception exception) {
@@ -184,6 +187,39 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Receta>>  call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void findDataBaseWebMedicamento() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+//Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad
+        MedicamentoAPI medicamentoAPI = retrofit.create(MedicamentoAPI.class);
+        Call<List<Medicamento>> call = medicamentoAPI.find();
+
+        call.enqueue(new Callback<List<Medicamento>> () {
+            @Override
+            public void onResponse(Call<List<Medicamento>>  call, Response<List<Medicamento>>  response) {
+                List<Medicamento> medicamentoList = response.body();
+                try {
+                    if (response.isSuccessful()) {
+                        for (Medicamento p: medicamentoList){
+                            repository.insertMedicamentoLocalDb(new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
+                                    p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
+                                    p.getMargenTiempo(), p.getPrioridad()));
+                        }
+                        Toast.makeText(LoginActivity.this, "Datos cargados exitosamente medicamento", Toast.LENGTH_SHORT).show();
+                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
+                    }
+                } catch (Exception exception) {
+                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Medicamento>>  call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
             }
         });

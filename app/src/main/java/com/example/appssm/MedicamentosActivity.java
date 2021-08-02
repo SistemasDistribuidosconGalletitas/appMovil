@@ -65,12 +65,8 @@ public class MedicamentosActivity extends AppCompatActivity {
         //list = repository.getAllMedicamentos();
         adapter = new MedicamentoAdapter(list);
         //adapter = new MedicamentoAdapter(repository.getAllMedicamentos());
+        setAlarm(list.size());
 
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-//            NotificationChannel channel = new NotificationChannel("CHANNEL_ID","CHANNEL_ID", NotificationManager.IMPORTANCE_DEFAULT);
-//            NotificationManager manager = getSystemService(NotificationManager.class);
-//            manager.createNotificationChannel(channel);
-//        }
 
         adapter.setOnClickListener(new View.OnClickListener() {
 
@@ -79,7 +75,8 @@ public class MedicamentosActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String title = list.get(recyclerView.getChildAdapterPosition(view)).getNombre();
                 String hora = list.get(recyclerView.getChildAdapterPosition(view)).getHoraAplicacion();
-                onTimeSet(01,45);
+                //onTimeSet(14,39);
+                setAlarm(3);
 //                sendNotification(title,hora);
             }
         });
@@ -101,20 +98,49 @@ public class MedicamentosActivity extends AppCompatActivity {
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
-        updateTimeText(c);
+
         startAlarm(c);
     }
 
-    private void updateTimeText(Calendar c) {
-        String timeText = "Alarm set for: ";
-        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+    private void setAlarm(int number){
+        Bundle parmetros = new Bundle();
 
-        //mTextView.setText(timeText);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Calendar c = Calendar.getInstance();
+        List<Calendar> calendarList = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            c.set(Calendar.HOUR_OF_DAY, 17);
+            c.set(Calendar.MINUTE, 07);
+            calendarList.add(c);
+        }
+        int i=0;
+        for (Calendar item : calendarList) {
+            item.add(Calendar.SECOND,10);
+            int requestCode = (int)c.getTimeInMillis()/1000;
+            parmetros.putString("nombre",list.get(i).getNombre());
+            parmetros.putString("hora",list.get(i).getHoraAplicacion());
+            parmetros.putInt("REQUEST",requestCode);
+            Intent intent = new Intent(this, AlertReceiver.class);
+            intent.putExtras(parmetros);
+            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+            i++;
+        }
     }
 
     private void startAlarm(Calendar c) {
+
+        Bundle parmetros = new Bundle();
+        parmetros.putString("nombre","Pacetamol");
+        parmetros.putString("hora","14:36");
+
+
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
         Intent intent = new Intent(this, AlertReceiver.class);
+        intent.putExtras(parmetros);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
         if (c.before(Calendar.getInstance())) {
@@ -123,6 +149,7 @@ public class MedicamentosActivity extends AppCompatActivity {
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
+
 
     private void cancelAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +17,10 @@ import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
 import com.example.appssm.domain.repository.Repository;
 import com.example.appssm.adapter.RecetaAdapter;
+import com.example.appssm.notificacion.AlertReceiver;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,5 +68,6 @@ public class RecetasActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
     }
+
 
 }

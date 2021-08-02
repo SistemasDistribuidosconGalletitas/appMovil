@@ -2,10 +2,16 @@ package com.example.appssm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -20,7 +26,10 @@ import com.example.appssm.domain.repository.Repository;
 import com.example.appssm.interfaces.MedicamentoAPI;
 import com.example.appssm.interfaces.RecetaAPI;
 import com.example.appssm.interfaces.UsuarioAPI;
+import com.example.appssm.notificacion.AlertReceiver;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,6 +52,13 @@ public class LoginActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         repository = new Repository(getApplicationContext());
+
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("CHANNEL_ID","CHANNEL_ID", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
         //insertUserTest();
         try {
             if (VerificaConectividad())
@@ -88,24 +104,16 @@ public class LoginActivity extends AppCompatActivity {
 
             findDataBaseWebRecetas(id);
             findDataBaseWebMedicamento();
+
+
+
             progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.show();
             progressDialog.setContentView(R.layout.progress_dialog);
             progressDialog.getWindow().setBackgroundDrawableResource(
                     android.R.color.transparent
             );
-//
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    progressDialog.dismiss();
-//                    Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
-//                    startActivity(intent);
-//
-//                    Toast.makeText(getApplicationContext(), "Bienvenido al sistema", Toast.LENGTH_SHORT).show();
-//                }
-//            }, 3000); // 3000 milliseconds delay
+
 
             Runnable r = new Runnable() {
 
@@ -250,5 +258,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }

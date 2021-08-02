@@ -21,7 +21,7 @@ public class AlertReceiver extends BroadcastReceiver {
         Bundle parametros = intent.getExtras();
         nombre = parametros.getString("nombre");
         hora = parametros.getString("hora");
-        requestCode = parametros.getInt("REQUEST");
+       requestCode = parametros.getInt("REQUEST");
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "CHANNEL_ID")
                 .setSmallIcon(R.drawable.icono_med1)

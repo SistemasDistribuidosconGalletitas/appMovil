@@ -22,6 +22,10 @@ public interface UsuarioDao {
     @Query("SELECT * FROM Usuario WHERE nombreUsuario IN (:userName) AND contrasenia IN (:pass)")
     Usuario validateInfo(String userName, String pass);
 
+
+    @Query("SELECT * FROM Usuario WHERE id IN (:id)")
+    Usuario getUsuarioByID(int id);
+
     //Insert User test
     @Insert
     Long insert (Usuario usuario);

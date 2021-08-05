@@ -45,8 +45,8 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecetaAdapter.ViewHolder holder, int position) {
         holder.id.setText(String.valueOf(recetaList.get(position).getIdReceta()));
-        holder.fechaInicio.setText(recetaList.get(position).getRecetafechaInicio());
-        holder.fechaFin.setText(recetaList.get(position).getRecetafechaFin());
+        holder.fechaInicio.setText(recetaList.get(position).getRecetafechaFin());
+        holder.fechaFin.setText(recetaList.get(position).getRecetafechaInicio());
         holder.nombreMedico.setText(recetaList.get(position).getNombreMedico());
 //        holder.cantidadMedicamentos.setText(recetaList.get(position).getCantidad_medicamentos());
     }

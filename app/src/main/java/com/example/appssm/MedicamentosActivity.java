@@ -165,27 +165,7 @@ public class MedicamentosActivity extends AppCompatActivity {
         }
     }
 
-    private void startAlarm(Calendar c) {
 
-        Bundle parmetros = new Bundle();
-        parmetros.putString("nombre","Pacetamol");
-        parmetros.putString("hora","14:36");
-
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        int requestCode = (int)c.getTimeInMillis()/1000;
-        parmetros.putInt("REQUEST",requestCode);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        intent.putExtras(parmetros);
-        Log.i("Request", String.valueOf(requestCode));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
-
-//        if (c.before(Calendar.getInstance())) {
-//            c.add(Calendar.DATE, 1);
-//        }
-
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-    }
 
 
     private void cancelAlarm() {

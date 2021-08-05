@@ -17,7 +17,7 @@ public interface RecetaDao {
     List<Receta> getAllRecetas();
 
     @Query("SELECT * FROM Receta WHERE idReceta IN (:idReceta)")
-    Receta getReceta(int idReceta);
+    List<Receta> getReceta(int idReceta);
 
 
 
@@ -29,7 +29,7 @@ public interface RecetaDao {
     public void updateReceta(Receta receta);
 
     default void insertOrUpdate(Receta receta){
-        List<Receta> itemsReceta = getAllRecetas();
+        List<Receta> itemsReceta = getReceta(receta.getIdReceta());
         if(itemsReceta.isEmpty()){
             insert(receta);
         }else{

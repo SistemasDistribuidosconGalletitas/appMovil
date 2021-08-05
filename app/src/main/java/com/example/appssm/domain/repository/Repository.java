@@ -51,13 +51,13 @@ public class Repository {
     public List<Receta> getAllRecetas(){
         return db.recetaDao().getAllRecetas();
     }
-    public Receta getReceta(int id_receta){
+    public List<Receta> getReceta(int id_receta){
         return db.recetaDao().getReceta(id_receta);
     }
 
     public void insertMedicamentoLocalDb(Medicamento medicamento){
-        db.medicamentoDao().insert(medicamento);
-        //db.medicamentoDao().insertOrUpdate(medicamento);
+        //db.medicamentoDao().insert(medicamento);
+        db.medicamentoDao().insertOrUpdate(medicamento);
     }
 
     public List<Medicamento> getAllMedicamentosByReceta(int id_receta){

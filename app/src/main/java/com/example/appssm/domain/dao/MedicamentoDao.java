@@ -18,6 +18,8 @@ public interface MedicamentoDao {
     @Query("SELECt * FROM Medicamento ")
     List<Medicamento> getAllMedicamentos();
 
+    @Query("SELECt * FROM Medicamento WHERE id IN (:idMedicamento)")
+    List<Medicamento> getAllMedicamentosByIdMed(int idMedicamento);
 
     //Insert Medicamentos test
     @Insert
@@ -27,7 +29,7 @@ public interface MedicamentoDao {
     public void updateMedicamento(Medicamento medicamento);
 
     default void insertOrUpdate(Medicamento medicamento){
-        List<Medicamento> itemsMedicamento = getAllMedicamentos();
+        List<Medicamento> itemsMedicamento = getAllMedicamentosByIdMed(medicamento.getId());
         if(itemsMedicamento.isEmpty()){
             insert(medicamento);
         }else{

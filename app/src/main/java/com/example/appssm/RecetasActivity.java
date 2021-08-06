@@ -50,7 +50,7 @@ public class RecetasActivity extends AppCompatActivity {
 
         preferences = getApplicationContext().getSharedPreferences("sesion", Context.MODE_PRIVATE);
         editor = preferences.edit();
-        
+
 
         recyclerView = findViewById(R.id.rv_receta);
         repository = new Repository(getApplicationContext());

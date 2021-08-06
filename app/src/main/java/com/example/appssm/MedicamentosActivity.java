@@ -84,6 +84,8 @@ public class MedicamentosActivity extends AppCompatActivity {
 
                 list.get(recyclerView.getChildAdapterPosition(view)).setHoraAplicacion(newHr);
                 tv.setText(newHr);
+
+                Toast.makeText(getApplicationContext(), "Nueva alerta de medicamento: " + newHr, Toast.LENGTH_SHORT).show();
             }
         });
         recyclerView.setAdapter(adapter);

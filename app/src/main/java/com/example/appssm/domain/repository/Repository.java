@@ -67,4 +67,8 @@ public class Repository {
     public List<Medicamento> getAllMedicamentos(){
         return db.medicamentoDao().getAllMedicamentos();
     }
+
+    public void updateMedicamento(Medicamento medicamento){
+        db.medicamentoDao().updateMedicamento(medicamento);
+    }
 }

@@ -155,7 +155,7 @@ public class ServidorContexto{
         String[] time = new String[3];
         int[] intHorario = new int[2];
         Calendar cal = Calendar.getInstance();
-        DateFormat df = new SimpleDateFormat("hh:mm");
+        DateFormat df = new SimpleDateFormat("HH:mm");
 
         time = strHorario.split(":");
 
@@ -168,6 +168,11 @@ public class ServidorContexto{
         cal.add(Calendar.MINUTE, tmp);
 
         return df.format(cal.getTime());
+    }
+
+    //    modificar hora de aplicacion directamente en la BD (nueva hora de aplicacion del medicamento)
+    public static void modificarHrAplicacionBD(Repository repository, Medicamento medicamento) {
+        repository.updateMedicamento(medicamento);
     }
 
     //    revisar dependencia (relacion entre medicamentos) - revisarDependencia()

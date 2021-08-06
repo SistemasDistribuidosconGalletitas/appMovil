@@ -107,13 +107,10 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     findDataBaseWeb(login_email.getText().toString(), login_contrasena.getText().toString());
 
-
-                    //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString())
-
                 }
             }
         });
-                //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString())
+
 
     }
 
@@ -124,9 +121,9 @@ public class LoginActivity extends AppCompatActivity {
             editor.putBoolean(this.llave, status);
             editor.apply();
 
-            //findDataBaseWebRecetas(id);
+
             ServidorContexto.findDataBaseWebRecetas(getApplicationContext(),repository,id);
-            //findDataBaseWebMedicamento();
+
             ServidorContexto.findDataBaseWebMedicamento(getApplicationContext(),repository);
 
 

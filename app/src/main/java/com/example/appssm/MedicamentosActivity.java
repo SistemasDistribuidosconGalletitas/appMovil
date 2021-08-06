@@ -8,11 +8,14 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+import java.util.PriorityQueue;
 
 public class MedicamentosActivity extends AppCompatActivity {
 
@@ -36,7 +40,7 @@ public class MedicamentosActivity extends AppCompatActivity {
     private List<Medicamento> list;
     TextView pacienteNombre;
     private int recetaId;
-
+    Button medicamentoPrioridad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,22 @@ public class MedicamentosActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(adapter);
+
+        medicamentoPrioridad = (Button) findViewById(R.id.btn_prioridad);
+        medicamentoPrioridad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                int pos = recyclerView.getChildAdapterPosition(v);
+//                int prioridad = list.get(pos).getPrioridad();
+
+                int prioridad = 1;
+                if (prioridad < 2) {
+//                    ServidorContexto.alertaPrioridad(usuario.getNombrePaciente(), list.get(pos).getNombre(), list.get(pos).getHoraAplicacion());
+                    ServidorContexto.alertaPrioridad("PACIENTE", "NOMBRE_MEDICAMENTO", "HORA_APLICACION");
+                }
+            }
+        });
+
     }
 
     public void sendNotification(String nombre, String hora) {

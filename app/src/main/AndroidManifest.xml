@@ -8,7 +8,8 @@
     <!--Este es el permiso para tener acceso a internet-->
     <uses-permission android:name="android.permission.INTERNET" />
 
-
+    <!--sms prioridad-->
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
         android:allowBackup="true"

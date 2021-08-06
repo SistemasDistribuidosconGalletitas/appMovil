@@ -2,12 +2,21 @@ package com.example.appssm.domain;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.appssm.LoginActivity;
+import com.example.appssm.RecetasActivity;
 import com.example.appssm.domain.model.Medicamento;
 import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.repository.Repository;
@@ -15,6 +24,7 @@ import com.example.appssm.interfaces.MedicamentoAPI;
 import com.example.appssm.interfaces.RecetaAPI;
 import com.example.appssm.notificacion.AlertReceiver;
 
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,7 +36,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ServidorContexto {
+import java.util.ArrayList;
+
+public class ServidorContexto{
 
     public ServidorContexto() {
     }
@@ -159,6 +171,14 @@ public class ServidorContexto {
     }
 
     //    revisar dependencia (relacion entre medicamentos) - revisarDependencia()
-    //    revisar prioridad (indice de gravedad por no aplicar un medicamento) - revisarPrioridad()
+
+    //    revisar prioridad (indice de gravedad por no aplicar un medicamento)
+    public static void alertaPrioridad(String paciente, String medicamento, String horario) {
+        String mensaje = "El paciente: " + paciente + " no ha aplicado: " + medicamento + " en el horario:" + horario;
+
+        SmsManager manager = SmsManager.getDefault();
+        manager.sendTextMessage("525565092686", null, mensaje, null, null);
+    }
+
     //    actualizar historial - actualizarHistorial()
 }

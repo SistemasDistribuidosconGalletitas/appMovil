@@ -15,11 +15,13 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.appssm.domain.ServidorContexto;
 import com.example.appssm.domain.model.Medicamento;
 import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
@@ -49,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private String llave = "llave";
+
+    List<Receta> listReceta = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,9 +124,10 @@ public class LoginActivity extends AppCompatActivity {
             editor.putBoolean(this.llave, status);
             editor.apply();
 
-            findDataBaseWebRecetas(id);
-            findDataBaseWebMedicamento();
-
+            //findDataBaseWebRecetas(id);
+            ServidorContexto.findDataBaseWebRecetas(getApplicationContext(),repository,id);
+            //findDataBaseWebMedicamento();
+            ServidorContexto.findDataBaseWebMedicamento(getApplicationContext(),repository);
 
 
             progressDialog = new ProgressDialog(LoginActivity.this);
@@ -137,6 +142,21 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
+                    List<Medicamento> listMedicamento;
+                    // Se activan las notificaciones
+                    listReceta = repository.getAllRecetas();
+                    for (Receta rec: listReceta) {
+                        listMedicamento = repository.getAllMedicamentosByReceta(rec.getIdReceta());
+                        for (Medicamento med: listMedicamento) {
+                            String horaAplicacion =  med.getHoraAplicacion();
+                            int hora = Integer.parseInt(horaAplicacion.substring(0,2));
+                            int min = Integer.parseInt(horaAplicacion.substring(3,5));
+                            Log.i("HORA", String.valueOf(hora));
+                            Log.i("MIN", String.valueOf(min));
+                            //onTimeSet(hora,min,med.getNombre(),med.getHoraAplicacion());
+                            ServidorContexto.revisarHrAplicacion(getApplicationContext(),hora,min,med.getNombre(),med.getHoraAplicacion());
+                        }
+                    }
                     // if you are redirecting from a fragment then use getActivity() as the context.
                     Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
                     startActivity(intent);
@@ -213,72 +233,100 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void findDataBaseWebRecetas(int id) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-//Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia)
-        RecetaAPI recetaAPI = retrofit.create(RecetaAPI.class);
-        Call<List<Receta>> call = recetaAPI.find(id);
+//    private void findDataBaseWebRecetas(int id) {
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+////Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia)
+//        RecetaAPI recetaAPI = retrofit.create(RecetaAPI.class);
+//        Call<List<Receta>> call = recetaAPI.find(id);
+//
+//        call.enqueue(new Callback<List<Receta>> () {
+//            @Override
+//            public void onResponse(Call<List<Receta>>  call, Response<List<Receta>>  response) {
+//                List<Receta> recetaList = response.body();
+//                try {
+//                    if (response.isSuccessful()) {
+//                        for (Receta p: recetaList){
+//                            ServidorContexto.crearReceta(repository,new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
+//                            //repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
+//                        }
+//                        //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente", Toast.LENGTH_SHORT).show();
+//                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
+//                    }
+//                } catch (Exception exception) {
+//                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Receta>>  call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
-        call.enqueue(new Callback<List<Receta>> () {
-            @Override
-            public void onResponse(Call<List<Receta>>  call, Response<List<Receta>>  response) {
-                List<Receta> recetaList = response.body();
-                try {
-                    if (response.isSuccessful()) {
-                        for (Receta p: recetaList){
-                            repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
-                        }
-                        Toast.makeText(LoginActivity.this, "Datos cargados exitosamente", Toast.LENGTH_SHORT).show();
-                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
-                    }
-                } catch (Exception exception) {
-                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Receta>>  call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void findDataBaseWebMedicamento() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-//Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad
-        MedicamentoAPI medicamentoAPI = retrofit.create(MedicamentoAPI.class);
-        Call<List<Medicamento>> call = medicamentoAPI.find();
-
-        call.enqueue(new Callback<List<Medicamento>> () {
-            @Override
-            public void onResponse(Call<List<Medicamento>>  call, Response<List<Medicamento>>  response) {
-                List<Medicamento> medicamentoList = response.body();
-                try {
-                    if (response.isSuccessful()) {
-                        for (Medicamento p: medicamentoList){
-                            repository.insertMedicamentoLocalDb(new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
-                                    p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
-                                    p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
-                        }
-                        Toast.makeText(LoginActivity.this, "Datos cargados exitosamente medicamento", Toast.LENGTH_SHORT).show();
-                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
-                    }
-                } catch (Exception exception) {
-                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Medicamento>>  call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void findDataBaseWebMedicamento() {
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+////Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad
+//        MedicamentoAPI medicamentoAPI = retrofit.create(MedicamentoAPI.class);
+//        Call<List<Medicamento>> call = medicamentoAPI.find();
+//
+//        call.enqueue(new Callback<List<Medicamento>> () {
+//            @Override
+//            public void onResponse(Call<List<Medicamento>>  call, Response<List<Medicamento>>  response) {
+//                List<Medicamento> medicamentoList = response.body();
+//                try {
+//                    if (response.isSuccessful()) {
+//                        for (Medicamento p: medicamentoList){
+//                            ServidorContexto.crearMedicamentos(repository, new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
+//                                    p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
+//                                    p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
+////                            repository.insertMedicamentoLocalDb(new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
+////                                    p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
+////                                    p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
+//                        }
+//                        //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente medicamento", Toast.LENGTH_SHORT).show();
+//                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
+//                    }
+//                } catch (Exception exception) {
+//                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Medicamento>>  call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private boolean revisarSesion() {
         return this.preferences.getBoolean(llave, false);
+    }
+
+    public void onTimeSet(int hourOfDay, int minute, String nombre, String hora) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+
+
+
+        Bundle parmetros = new Bundle();
+        parmetros.putString("nombre",nombre);
+        parmetros.putString("hora",hora);
+
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        int requestCode = (int)c.getTimeInMillis()/1000;
+        parmetros.putInt("REQUEST",requestCode);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        intent.putExtras(parmetros);
+        Log.i("Request", String.valueOf(requestCode));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
 }

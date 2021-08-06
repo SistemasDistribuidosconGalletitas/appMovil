@@ -15,6 +15,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private String llave = "llave";
+
+    List<Receta> listReceta = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +126,22 @@ public class LoginActivity extends AppCompatActivity {
             findDataBaseWebRecetas(id);
             findDataBaseWebMedicamento();
 
+
+
+            List<Medicamento> listMedicamento;
+            // Se activan las notificaciones
+            listReceta = repository.getAllRecetas();
+            for (Receta rec: listReceta) {
+                listMedicamento = repository.getAllMedicamentosByReceta(rec.getIdReceta());
+                for (Medicamento med: listMedicamento) {
+                    String horaAplicacion =  med.getHoraAplicacion();
+                    int hora = Integer.parseInt(horaAplicacion.substring(0,2));
+                    int min = Integer.parseInt(horaAplicacion.substring(3,5));
+                    Log.i("HORA", String.valueOf(hora));
+                    Log.i("MIN", String.valueOf(min));
+                    onTimeSet(hora,min,med.getNombre(),med.getHoraAplicacion());
+                }
+            }
 
 
             progressDialog = new ProgressDialog(LoginActivity.this);
@@ -279,6 +298,34 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean revisarSesion() {
         return this.preferences.getBoolean(llave, false);
+    }
+
+    public void onTimeSet(int hourOfDay, int minute, String nombre, String hora) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+
+
+
+        Bundle parmetros = new Bundle();
+        parmetros.putString("nombre",nombre);
+        parmetros.putString("hora",hora);
+
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        int requestCode = (int)c.getTimeInMillis()/1000;
+        parmetros.putInt("REQUEST",requestCode);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        intent.putExtras(parmetros);
+        Log.i("Request", String.valueOf(requestCode));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
+
+//        if (c.before(Calendar.getInstance())) {
+//            c.add(Calendar.DATE, 1);
+//        }
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
 }

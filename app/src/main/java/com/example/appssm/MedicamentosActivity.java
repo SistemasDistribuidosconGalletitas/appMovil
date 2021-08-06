@@ -90,14 +90,14 @@ public class MedicamentosActivity extends AppCompatActivity {
         //adapter = new MedicamentoAdapter(repository.getAllMedicamentos());
         //setAlarm(list.size());
 
-        for (Medicamento med: list) {
-            String horaAplicacion =  med.getHoraAplicacion();
-            int hora = Integer.parseInt(horaAplicacion.substring(0,2));
-            int min = Integer.parseInt(horaAplicacion.substring(3,5));
-            Log.i("HORA", String.valueOf(hora));
-            Log.i("MIN", String.valueOf(min));
-            onTimeSet(hora,min,med.getNombre(),med.getHoraAplicacion());
-        }
+//        for (Medicamento med: list) {
+//            String horaAplicacion =  med.getHoraAplicacion();
+//            int hora = Integer.parseInt(horaAplicacion.substring(0,2));
+//            int min = Integer.parseInt(horaAplicacion.substring(3,5));
+//            Log.i("HORA", String.valueOf(hora));
+//            Log.i("MIN", String.valueOf(min));
+//            onTimeSet(hora,min,med.getNombre(),med.getHoraAplicacion());
+//        }
 
 
         adapter.setOnClickListener(new View.OnClickListener() {

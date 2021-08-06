@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -45,6 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     private Repository repository;
     private ProgressDialog progressDialog;
 
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private String llave = "llave";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +74,19 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
 
+
+
         // Debe revisar la sesion en esta parte
+//        preferences = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
+//        editor = preferences.edit();
+//
+//        if (revisarSesion()) {
+//            Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+
+
 
 
         login_email = (EditText) findViewById(R.id.login_email);
@@ -259,6 +276,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
+    private boolean revisarSesion() {
+        return this.preferences.getBoolean(llave, false);
+    }
 
 }

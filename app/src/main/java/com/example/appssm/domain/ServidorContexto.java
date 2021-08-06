@@ -179,12 +179,13 @@ public class ServidorContexto{
     //    revisar dependencia (relacion entre medicamentos) - revisarDependencia()
 
     //    revisar prioridad (indice de gravedad por no aplicar un medicamento)
-    public static void alertaPrioridad(String paciente, String medicamento, String horario) {
+    public static void alertaPrioridad(Context context, String paciente, String medicamento, String horario) {
 
         String mensaje = "El paciente: " + paciente + " no ha aplicado: " + medicamento + " en el horario:" + horario;
 
         SmsManager manager = SmsManager.getDefault();
         manager.sendTextMessage("2881226389", null, mensaje, null, null);
+        Toast.makeText(context, "Mensaje enviado", Toast.LENGTH_LONG).show();
     }
 
     //    actualizar historial - actualizarHistorial()

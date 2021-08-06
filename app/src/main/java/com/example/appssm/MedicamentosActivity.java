@@ -1,7 +1,9 @@
 package com.example.appssm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
@@ -12,8 +14,10 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +46,7 @@ public class MedicamentosActivity extends AppCompatActivity {
     TextView pacienteNombre;
     private int recetaId;
     Button medicamentoPrioridad;
+    String nombrePa, nombreMe, horarioPa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,25 +105,29 @@ public class MedicamentosActivity extends AppCompatActivity {
                 Log.i("MIN", String.valueOf(min));
                 //onTimeSet(hora,min,med.getNombre(),med.getHoraAplicacion());
                 ServidorContexto.revisarHrAplicacion(getApplicationContext(),hora,min,list.get(pos).getNombre(),list.get(pos).getHoraAplicacion());
+
+
+                // Mandar el SMS cuando la prioridad del medicamento es 1
+                if (ContextCompat.checkSelfPermission(MedicamentosActivity.this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED){
+
+                    int prioridad = list.get(pos).getPrioridad();
+
+                    nombrePa = usuario.getNombrePaciente();
+                    nombreMe = list.get(pos).getNombre();
+                    horarioPa = list.get(pos).getHoraAplicacion();
+                    if (prioridad < 2) {
+                        ServidorContexto.alertaPrioridad(getApplicationContext(),nombrePa, nombreMe, horarioPa);
+                    }
+                }else {
+                    ActivityCompat.requestPermissions(MedicamentosActivity.this, new String[]{Manifest.permission.SEND_SMS},100);
+                }
+
+
             }
         });
         recyclerView.setAdapter(adapter);
 
-        medicamentoPrioridad = (Button) findViewById(R.id.btn_prioridad);
-        medicamentoPrioridad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = recyclerView.getChildAdapterPosition(v);
-                int prioridad = list.get(pos).getPrioridad();
 
-
-                if (prioridad < 2) {
-                    requestPermissions(new String[]{Manifest.permission.SEND_SMS},1);
-                    ServidorContexto.alertaPrioridad(usuario.getNombrePaciente(), list.get(pos).getNombre(), list.get(pos).getHoraAplicacion());
-                    //ServidorContexto.alertaPrioridad("PACIENTE", "NOMBRE_MEDICAMENTO", "HORA_APLICACION");
-                }
-            }
-        });
 
     }
 
@@ -151,9 +160,7 @@ public class MedicamentosActivity extends AppCompatActivity {
         Log.i("Request", String.valueOf(requestCode));
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
 
-//        if (c.before(Calendar.getInstance())) {
-//            c.add(Calendar.DATE, 1);
-//        }
+
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
@@ -202,5 +209,27 @@ public class MedicamentosActivity extends AppCompatActivity {
 
         alarmManager.cancel(pendingIntent);
         // mTextView.setText("Alarm canceled");
+    }
+
+    @Override
+    public boolean onPictureInPictureRequested() {
+        return super.onPictureInPictureRequested();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,  String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            //sendMessage(nombrePa, nombreMe, horarioPa);
+            ServidorContexto.alertaPrioridad(getApplicationContext(),nombrePa, nombreMe, horarioPa);
+        }else{
+            Toast.makeText(getApplicationContext(), "Permiso denegado", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void sendMessage(String nombrePaciente, String nombreMedicamento, String horario){
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage("2881226389", null, nombrePaciente + " " + nombreMedicamento + " " + horario, null, null);
+        Toast.makeText(getApplicationContext(), "Mensaje enviado", Toast.LENGTH_LONG).show();
     }
 }

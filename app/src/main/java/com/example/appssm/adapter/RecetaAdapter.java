@@ -24,20 +24,9 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
 
     private List<Receta> recetaList;
     private View.OnClickListener listener;
-    ArrayList<Receta> recetaOriginalList;
 
     public RecetaAdapter(List<Receta> recetaList) {
         this.recetaList = recetaList;
-        recetaOriginalList = new ArrayList<>();
-        recetaOriginalList.addAll(recetaList);
-    }
-
-    public ArrayList<Receta> getRecetaOriginalList() {
-        return recetaOriginalList;
-    }
-
-    public void setRecetaOriginalList(ArrayList<Receta> recetaOriginalList) {
-        this.recetaOriginalList = recetaOriginalList;
     }
 
     public List<Receta> getRecetaList() {

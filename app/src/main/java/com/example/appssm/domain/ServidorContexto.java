@@ -35,18 +35,18 @@ public class ServidorContexto {
     public static void findDataBaseWebRecetas(Context context, Repository repository, int id) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
-//Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia)
+        //Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia)
         RecetaAPI recetaAPI = retrofit.create(RecetaAPI.class);
         Call<List<Receta>> call = recetaAPI.find(id);
 
         call.enqueue(new Callback<List<Receta>>() {
             @Override
-            public void onResponse(Call<List<Receta>>  call, Response<List<Receta>> response) {
+            public void onResponse(Call<List<Receta>> call, Response<List<Receta>> response) {
                 List<Receta> recetaList = response.body();
                 try {
                     if (response.isSuccessful()) {
-                        for (Receta p: recetaList){
-                            crearReceta(repository,new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
+                        for (Receta p : recetaList) {
+                            crearReceta(repository, new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
                             //repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
                         }
                         //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente", Toast.LENGTH_SHORT).show();
@@ -58,7 +58,7 @@ public class ServidorContexto {
             }
 
             @Override
-            public void onFailure(Call<List<Receta>>  call, Throwable t) {
+            public void onFailure(Call<List<Receta>> call, Throwable t) {
                 Toast.makeText(context, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
             }
         });
@@ -68,17 +68,17 @@ public class ServidorContexto {
     public static void findDataBaseWebMedicamento(Context context, Repository repository) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
-//Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad
+        //Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad
         MedicamentoAPI medicamentoAPI = retrofit.create(MedicamentoAPI.class);
         Call<List<Medicamento>> call = medicamentoAPI.find();
 
-        call.enqueue(new Callback<List<Medicamento>> () {
+        call.enqueue(new Callback<List<Medicamento>>() {
             @Override
-            public void onResponse(Call<List<Medicamento>>  call, Response<List<Medicamento>>  response) {
+            public void onResponse(Call<List<Medicamento>> call, Response<List<Medicamento>> response) {
                 List<Medicamento> medicamentoList = response.body();
                 try {
                     if (response.isSuccessful()) {
-                        for (Medicamento p: medicamentoList){
+                        for (Medicamento p : medicamentoList) {
                             crearMedicamentos(repository, new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
                                     p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
                                     p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
@@ -95,7 +95,7 @@ public class ServidorContexto {
             }
 
             @Override
-            public void onFailure(Call<List<Medicamento>>  call, Throwable t) {
+            public void onFailure(Call<List<Medicamento>> call, Throwable t) {
                 Toast.makeText(context, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
             }
         });
@@ -103,12 +103,12 @@ public class ServidorContexto {
 
 
     //    crear receta
-    public static void crearReceta(Repository repository,Receta receta){
+    public static void crearReceta(Repository repository, Receta receta) {
         repository.insertRecetaLocalDb(receta);
     }
 
     // crear los medicamentos
-    public static void crearMedicamentos(Repository repository, Medicamento medicamento){
+    public static void crearMedicamentos(Repository repository, Medicamento medicamento) {
         repository.insertMedicamentoLocalDb(medicamento);
     }
 
@@ -116,19 +116,19 @@ public class ServidorContexto {
     //    modificar fechas (en caso de cambio por retraso de aplicacion de medicamento) - modificarFechas()
 
     //    revisar hora de aplicacion (para notificacion)
-    public static void revisarHrAplicacion(Context context,int hourOfDay, int minute, String nombre, String hora){
+    public static void revisarHrAplicacion(Context context, int hourOfDay, int minute, String nombre, String hora) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
         Bundle parmetros = new Bundle();
-        parmetros.putString("nombre",nombre);
-        parmetros.putString("hora",hora);
+        parmetros.putString("nombre", nombre);
+        parmetros.putString("hora", hora);
 
-        AlarmManager alarmManager = (AlarmManager)  context.getSystemService(Context.ALARM_SERVICE);
-        int requestCode = (int)c.getTimeInMillis()/1000;
-        parmetros.putInt("REQUEST",requestCode);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        int requestCode = (int) c.getTimeInMillis() / 1000;
+        parmetros.putInt("REQUEST", requestCode);
         Intent intent = new Intent(context, AlertReceiver.class);
         intent.putExtras(parmetros);
         Log.i("Request", String.valueOf(requestCode));

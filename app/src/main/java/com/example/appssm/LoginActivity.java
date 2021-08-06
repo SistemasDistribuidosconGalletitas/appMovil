@@ -124,8 +124,10 @@ public class LoginActivity extends AppCompatActivity {
             editor.putBoolean(this.llave, status);
             editor.apply();
 
-            findDataBaseWebRecetas(id);
-            findDataBaseWebMedicamento();
+            //findDataBaseWebRecetas(id);
+            ServidorContexto.findDataBaseWebRecetas(getApplicationContext(),repository,id);
+            //findDataBaseWebMedicamento();
+            ServidorContexto.findDataBaseWebMedicamento(getApplicationContext(),repository);
 
 
             progressDialog = new ProgressDialog(LoginActivity.this);
@@ -231,73 +233,73 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void findDataBaseWebRecetas(int id) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-//Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia)
-        RecetaAPI recetaAPI = retrofit.create(RecetaAPI.class);
-        Call<List<Receta>> call = recetaAPI.find(id);
+//    private void findDataBaseWebRecetas(int id) {
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+////Receta(int idReceta, String fechaConsulta, String recetafechaInicio, String recetafechaFin, String nombreMedico, int paciente, boolean vigencia)
+//        RecetaAPI recetaAPI = retrofit.create(RecetaAPI.class);
+//        Call<List<Receta>> call = recetaAPI.find(id);
+//
+//        call.enqueue(new Callback<List<Receta>> () {
+//            @Override
+//            public void onResponse(Call<List<Receta>>  call, Response<List<Receta>>  response) {
+//                List<Receta> recetaList = response.body();
+//                try {
+//                    if (response.isSuccessful()) {
+//                        for (Receta p: recetaList){
+//                            ServidorContexto.crearReceta(repository,new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
+//                            //repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
+//                        }
+//                        //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente", Toast.LENGTH_SHORT).show();
+//                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
+//                    }
+//                } catch (Exception exception) {
+//                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Receta>>  call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
-        call.enqueue(new Callback<List<Receta>> () {
-            @Override
-            public void onResponse(Call<List<Receta>>  call, Response<List<Receta>>  response) {
-                List<Receta> recetaList = response.body();
-                try {
-                    if (response.isSuccessful()) {
-                        for (Receta p: recetaList){
-                            ServidorContexto.crearReceta(repository,new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
-                            //repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
-                        }
-                        //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente", Toast.LENGTH_SHORT).show();
-                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
-                    }
-                } catch (Exception exception) {
-                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Receta>>  call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void findDataBaseWebMedicamento() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-//Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad
-        MedicamentoAPI medicamentoAPI = retrofit.create(MedicamentoAPI.class);
-        Call<List<Medicamento>> call = medicamentoAPI.find();
-
-        call.enqueue(new Callback<List<Medicamento>> () {
-            @Override
-            public void onResponse(Call<List<Medicamento>>  call, Response<List<Medicamento>>  response) {
-                List<Medicamento> medicamentoList = response.body();
-                try {
-                    if (response.isSuccessful()) {
-                        for (Medicamento p: medicamentoList){
-                            ServidorContexto.crearMedicamentos(repository, new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
-                                    p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
-                                    p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
-//                            repository.insertMedicamentoLocalDb(new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
+//    private void findDataBaseWebMedicamento() {
+//        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
+//                .addConverterFactory(GsonConverterFactory.create()).build();
+////Medicamento(int id, String nombre, String tipo, int dosis, int aplicaciones, String fechaInicio, String fechaFin, String horaAplicacion, double intervalo, String margenTiempo, int prioridad
+//        MedicamentoAPI medicamentoAPI = retrofit.create(MedicamentoAPI.class);
+//        Call<List<Medicamento>> call = medicamentoAPI.find();
+//
+//        call.enqueue(new Callback<List<Medicamento>> () {
+//            @Override
+//            public void onResponse(Call<List<Medicamento>>  call, Response<List<Medicamento>>  response) {
+//                List<Medicamento> medicamentoList = response.body();
+//                try {
+//                    if (response.isSuccessful()) {
+//                        for (Medicamento p: medicamentoList){
+//                            ServidorContexto.crearMedicamentos(repository, new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
 //                                    p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
 //                                    p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
-                        }
-                        //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente medicamento", Toast.LENGTH_SHORT).show();
-                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
-                    }
-                } catch (Exception exception) {
-                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Medicamento>>  call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+////                            repository.insertMedicamentoLocalDb(new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
+////                                    p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
+////                                    p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
+//                        }
+//                        //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente medicamento", Toast.LENGTH_SHORT).show();
+//                        //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
+//                    }
+//                } catch (Exception exception) {
+//                    Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Medicamento>>  call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, "Falló la conexión con servidor", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private boolean revisarSesion() {
         return this.preferences.getBoolean(llave, false);

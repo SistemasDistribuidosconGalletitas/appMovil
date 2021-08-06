@@ -6,10 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.appssm.domain.model.Medicamento;
 import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.repository.Repository;
+import com.example.appssm.interfaces.MedicamentoAPI;
+import com.example.appssm.interfaces.RecetaAPI;
 import com.example.appssm.notificacion.AlertReceiver;
 
 import java.text.DateFormat;

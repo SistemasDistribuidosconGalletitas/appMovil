@@ -1,5 +1,6 @@
 package com.example.appssm.domain;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -179,10 +180,11 @@ public class ServidorContexto{
 
     //    revisar prioridad (indice de gravedad por no aplicar un medicamento)
     public static void alertaPrioridad(String paciente, String medicamento, String horario) {
+
         String mensaje = "El paciente: " + paciente + " no ha aplicado: " + medicamento + " en el horario:" + horario;
 
         SmsManager manager = SmsManager.getDefault();
-        manager.sendTextMessage("525565092686", null, mensaje, null, null);
+        manager.sendTextMessage("2881226389", null, mensaje, null, null);
     }
 
     //    actualizar historial - actualizarHistorial()

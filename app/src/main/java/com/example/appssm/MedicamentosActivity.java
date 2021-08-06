@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -66,14 +67,14 @@ public class MedicamentosActivity extends AppCompatActivity {
         //adapter = new MedicamentoAdapter(repository.getAllMedicamentos());
         //setAlarm(list.size());
 
-        for (Medicamento med : list) {
-            String horaAplicacion = med.getHoraAplicacion();
-            int hora = Integer.parseInt(horaAplicacion.substring(0, 2));
-            int min = Integer.parseInt(horaAplicacion.substring(3, 5));
-            Log.i("HORA", String.valueOf(hora));
-            Log.i("MIN", String.valueOf(min));
-            onTimeSet(hora, min, med.getNombre(), med.getHoraAplicacion());
-        }
+//        for (Medicamento med : list) {
+//            String horaAplicacion = med.getHoraAplicacion();
+//            int hora = Integer.parseInt(horaAplicacion.substring(0, 2));
+//            int min = Integer.parseInt(horaAplicacion.substring(3, 5));
+//            Log.i("HORA", String.valueOf(hora));
+//            Log.i("MIN", String.valueOf(min));
+//            onTimeSet(hora, min, med.getNombre(), med.getHoraAplicacion());
+//        }
 
         adapter.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
@@ -107,13 +108,14 @@ public class MedicamentosActivity extends AppCompatActivity {
         medicamentoPrioridad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                int pos = recyclerView.getChildAdapterPosition(v);
-//                int prioridad = list.get(pos).getPrioridad();
+                int pos = recyclerView.getChildAdapterPosition(v);
+                int prioridad = list.get(pos).getPrioridad();
 
-                int prioridad = 1;
+
                 if (prioridad < 2) {
-//                    ServidorContexto.alertaPrioridad(usuario.getNombrePaciente(), list.get(pos).getNombre(), list.get(pos).getHoraAplicacion());
-                    ServidorContexto.alertaPrioridad("PACIENTE", "NOMBRE_MEDICAMENTO", "HORA_APLICACION");
+                    requestPermissions(new String[]{Manifest.permission.SEND_SMS},1);
+                    ServidorContexto.alertaPrioridad(usuario.getNombrePaciente(), list.get(pos).getNombre(), list.get(pos).getHoraAplicacion());
+                    //ServidorContexto.alertaPrioridad("PACIENTE", "NOMBRE_MEDICAMENTO", "HORA_APLICACION");
                 }
             }
         });

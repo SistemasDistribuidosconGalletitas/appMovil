@@ -48,17 +48,17 @@
             app:layout_constraintStart_toEndOf="@id/medicamento_aplicacion"
             app:layout_constraintTop_toBottomOf="@id/medicamento_nombre" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_prioridad"-->
-<!--            android:layout_width="32dp"-->
-<!--            android:layout_height="38dp"-->
-<!--            android:layout_marginStart="128dp"-->
-<!--            android:backgroundTint="#4DC5EA"-->
-<!--            android:padding="0dp"-->
-<!--            app:icon="@android:drawable/ic_menu_info_details"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/medicamento_hora"-->
-<!--            app:layout_constraintStart_toEndOf="@id/medicamento_hora"-->
-<!--            app:layout_constraintTop_toTopOf="@id/medicamento_hora" />-->
+        <Button
+            android:id="@+id/btn_prioridad"
+            android:layout_width="32dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="128dp"
+            android:backgroundTint="#4DC5EA"
+            android:padding="0dp"
+            app:icon="@android:drawable/ic_menu_info_details"
+            app:layout_constraintBottom_toBottomOf="@id/medicamento_hora"
+            app:layout_constraintStart_toEndOf="@id/medicamento_hora"
+            app:layout_constraintTop_toTopOf="@id/medicamento_hora" />
 
         <TextView
             android:id="@+id/medicamento_intervalo"

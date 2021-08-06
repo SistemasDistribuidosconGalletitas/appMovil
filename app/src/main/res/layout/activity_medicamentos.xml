@@ -82,17 +82,17 @@
             app:layout_constraintStart_toStartOf="@id/bloque_top"
             app:layout_constraintTop_toBottomOf="@+id/iconoPaciente" />
 
-        <Button
-            android:id="@+id/btn_prioridad"
-            android:layout_width="32dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="128dp"
-            android:backgroundTint="#4DC5EA"
-            android:padding="0dp"
-            app:icon="@android:drawable/ic_menu_info_details"
-            app:layout_constraintBottom_toBottomOf="@id/pacienteMedicamento"
-            app:layout_constraintStart_toEndOf="@id/pacienteMedicamento"
-            app:layout_constraintTop_toTopOf="@id/pacienteMedicamento" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_prioridad"-->
+<!--            android:layout_width="32dp"-->
+<!--            android:layout_height="38dp"-->
+<!--            android:layout_marginStart="128dp"-->
+<!--            android:backgroundTint="#4DC5EA"-->
+<!--            android:padding="0dp"-->
+<!--            app:icon="@android:drawable/ic_menu_info_details"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/pacienteMedicamento"-->
+<!--            app:layout_constraintStart_toEndOf="@id/pacienteMedicamento"-->
+<!--            app:layout_constraintTop_toTopOf="@id/pacienteMedicamento" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

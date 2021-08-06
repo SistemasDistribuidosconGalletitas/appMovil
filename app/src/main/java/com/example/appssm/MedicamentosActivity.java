@@ -23,8 +23,6 @@ import com.example.appssm.adapter.MedicamentoAdapter;
 import com.example.appssm.notificacion.AlertReceiver;
 import com.example.appssm.domain.ServidorContexto;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -82,7 +80,7 @@ public class MedicamentosActivity extends AppCompatActivity {
                 double intervalo = list.get(pos).getIntervalo();
                 TextView tv = recyclerView.findViewHolderForAdapterPosition(pos).itemView.findViewById(R.id.medicamento_hora);
 
-                String newHr = ServidorContexto.cambiarHorario(horario, intervalo);
+                String newHr = ServidorContexto.modificarHrAplicacion(horario, intervalo);
 
                 list.get(recyclerView.getChildAdapterPosition(view)).setHoraAplicacion(newHr);
                 tv.setText(newHr);
@@ -99,7 +97,6 @@ public class MedicamentosActivity extends AppCompatActivity {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(1, mBuilder.build());
     }
-
 
     public void onTimeSet(int hourOfDay, int minute, String nombre, String hora) {
         Calendar c = Calendar.getInstance();

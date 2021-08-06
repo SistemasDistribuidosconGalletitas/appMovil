@@ -85,7 +85,16 @@ public class MedicamentosActivity extends AppCompatActivity {
                 list.get(recyclerView.getChildAdapterPosition(view)).setHoraAplicacion(newHr);
                 tv.setText(newHr);
 
-                Toast.makeText(getApplicationContext(), "Nueva alerta de medicamento: " + newHr, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Notificación de medicamento activada: " + newHr, Toast.LENGTH_SHORT).show();
+                ServidorContexto.modificarHrAplicacionBD(repository,list.get(pos));
+
+
+                int hora = Integer.parseInt(newHr.substring(0,2));
+                int min = Integer.parseInt(newHr.substring(3,5));
+                Log.i("HORA", String.valueOf(hora));
+                Log.i("MIN", String.valueOf(min));
+                //onTimeSet(hora,min,med.getNombre(),med.getHoraAplicacion());
+                ServidorContexto.revisarHrAplicacion(getApplicationContext(),hora,min,list.get(pos).getNombre(),list.get(pos).getHoraAplicacion());
             }
         });
         recyclerView.setAdapter(adapter);

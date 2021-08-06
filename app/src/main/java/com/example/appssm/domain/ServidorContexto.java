@@ -1,17 +1,31 @@
 package com.example.appssm.domain;
 
+import com.example.appssm.domain.model.Medicamento;
+import com.example.appssm.domain.model.Receta;
+import com.example.appssm.domain.repository.Repository;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ServidorContexto {
 
+
     public ServidorContexto() {
     }
 
     //    crear receta - crearReceta()
+    public static void crearReceta(Repository repository,Receta receta){
+        repository.insertRecetaLocalDb(receta);
+    }
+
+    // crear los medicamentos - crearMedicamentos()
+    public static void crearMedicamentos(Repository repository, Medicamento medicamento){
+        repository.insertMedicamentoLocalDb(medicamento);
+
+    }
+
     //    checar codigo QR de medicamento - checarQR()
-    //    revisar fechas (que receta y medicamento esten en rango de fechas) - revisarFechas()
     //    modificar fechas (en caso de cambio por retraso de aplicacion de medicamento) - modificarFechas()
     //    revisar hora de aplicacion (para notificacion) - revisarHrAplicacion()
 

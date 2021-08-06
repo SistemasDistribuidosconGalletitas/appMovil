@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.appssm.domain.ServidorContexto;
 import com.example.appssm.domain.model.Medicamento;
 import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
@@ -246,9 +247,10 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         for (Receta p: recetaList){
-                            repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
+                            ServidorContexto.crearReceta(repository,new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
+                            //repository.insertRecetaLocalDb(new Receta(p.getIdReceta(), p.getFechaConsulta(), p.getRecetafechaInicio(), p.getRecetafechaFin(), p.getPaciente(), p.getNombreMedico(), p.isVigencia()));
                         }
-                        Toast.makeText(LoginActivity.this, "Datos cargados exitosamente", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente", Toast.LENGTH_SHORT).show();
                         //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
                     }
                 } catch (Exception exception) {
@@ -277,11 +279,14 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         for (Medicamento p: medicamentoList){
-                            repository.insertMedicamentoLocalDb(new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
+                            ServidorContexto.crearMedicamentos(repository, new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
                                     p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
                                     p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
+//                            repository.insertMedicamentoLocalDb(new Medicamento(p.getId(), p.getNombre(), p.getTipo(),
+//                                    p.getDosis(), p.getAplicaciones(), p.getFechaInicio(), p.getFechaFin(), p.getHoraAplicacion(), p.getIntervalo(),
+//                                    p.getMargenTiempo(), p.getPrioridad(), p.getReceta()));
                         }
-                        Toast.makeText(LoginActivity.this, "Datos cargados exitosamente medicamento", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "Datos cargados exitosamente medicamento", Toast.LENGTH_SHORT).show();
                         //checkUserAndPass(login_email.getText().toString(), login_contrasena.getText().toString());
                     }
                 } catch (Exception exception) {
@@ -320,10 +325,6 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtras(parmetros);
         Log.i("Request", String.valueOf(requestCode));
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
-
-//        if (c.before(Calendar.getInstance())) {
-//            c.add(Calendar.DATE, 1);
-//        }
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }

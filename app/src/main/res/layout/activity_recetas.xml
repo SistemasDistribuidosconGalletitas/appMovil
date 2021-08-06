@@ -8,6 +8,26 @@
     tools:context=".RecetasActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bloqueTop"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.901"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logout"
+            android:layout_width="51dp"
+            android:layout_height="51dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_logout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bloque_top"
         android:layout_width="match_parent"
         android:layout_height="130dp"

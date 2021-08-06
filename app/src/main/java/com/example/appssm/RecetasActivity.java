@@ -1,5 +1,6 @@
 package com.example.appssm;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -7,9 +8,12 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +36,11 @@ public class RecetasActivity extends AppCompatActivity {
     private List<Receta> list;
     TextView pacienteNombre;
 
+    ImageView btn_logout;
 
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private String llave = "llave";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,9 @@ public class RecetasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recetas);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        preferences = getApplicationContext().getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        
 
         recyclerView = findViewById(R.id.rv_receta);
         repository = new Repository(getApplicationContext());
@@ -50,6 +61,17 @@ public class RecetasActivity extends AppCompatActivity {
 
         Usuario usuario = repository.getUsuario();
         pacienteNombre.setText(usuario.getNombrePaciente());
+
+        btn_logout = (ImageView) findViewById(R.id.logout);
+
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                mostrarAlerta();
+              }
+            }
+        );
+
 
         adapter.setOnClickListener(new View.OnClickListener() {
 
@@ -67,6 +89,41 @@ public class RecetasActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(adapter);
+    }
+
+    public void mostrarAlerta() {
+        AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
+        dialogo1.setTitle("Importante");
+        dialogo1.setMessage("¿Desea cerrar sesión en ApiMiel?");
+        dialogo1.setCancelable(false);
+        dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                aceptar();
+            }
+
+        });
+        dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                cancelar();
+            }
+        });
+        dialogo1.show();
+    }
+
+    public void aceptar() {
+        Toast t = Toast.makeText(getApplicationContext(), "Cerrando sesión", Toast.LENGTH_SHORT);
+        t.show();
+        editor.putBoolean(this.llave, false);
+        editor.apply();
+
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        finish();
+        startActivity(intent);
+
+    }
+
+    public void cancelar() {
+
     }
 
 

@@ -77,14 +77,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // Debe revisar la sesion en esta parte
-//        preferences = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
-//        editor = preferences.edit();
-//
-//        if (revisarSesion()) {
-//            Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        preferences = this.getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+
+        if (revisarSesion()) {
+            Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
 
 
@@ -117,7 +117,8 @@ public class LoginActivity extends AppCompatActivity {
         if (status) {
 
 
-
+            editor.putBoolean(this.llave, status);
+            editor.apply();
 
             findDataBaseWebRecetas(id);
             findDataBaseWebMedicamento();

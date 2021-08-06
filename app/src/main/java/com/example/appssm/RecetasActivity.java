@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,11 +15,16 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appssm.domain.ServidorContexto;
+import com.example.appssm.domain.model.Medicamento;
 import com.example.appssm.domain.model.Receta;
 import com.example.appssm.domain.model.Usuario;
 import com.example.appssm.domain.repository.Repository;
@@ -39,6 +45,8 @@ public class RecetasActivity extends AppCompatActivity {
     private List<Receta> list;
     TextView pacienteNombre;
     ImageView btn_logout;
+    Button actualizarReceta;
+    private ProgressDialog progressDialog;
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
@@ -88,6 +96,37 @@ public class RecetasActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(adapter);
+
+        actualizarReceta = (Button) findViewById(R.id.btn_actualizar);
+        actualizarReceta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ServidorContexto.findDataBaseWebRecetas(getApplicationContext(), repository, usuario.getId());
+                ServidorContexto.findDataBaseWebMedicamento(getApplicationContext(), repository);
+
+                progressDialog = new ProgressDialog(RecetasActivity.this);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog);
+                progressDialog.getWindow().setBackgroundDrawableResource(
+                        android.R.color.transparent
+                );
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        progressDialog.dismiss();
+
+                        list.removeAll(list);
+                        recyclerView.removeAllViews();
+
+                        list = repository.getAllRecetas();
+                        adapter.setRecetaList(list);
+
+                        recyclerView.setAdapter(adapter);
+                    }
+                }, 3000); // 3000 milliseconds delay
+            }
+        });
     }
 
     public void mostrarAlerta() {

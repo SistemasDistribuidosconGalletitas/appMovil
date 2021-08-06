@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder> implements View.OnClickListener {
 
-    private final List<Receta> recetaList;
+    private List<Receta> recetaList;
     private View.OnClickListener listener;
     ArrayList<Receta> recetaOriginalList;
 
@@ -30,6 +30,22 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.ViewHolder
         this.recetaList = recetaList;
         recetaOriginalList = new ArrayList<>();
         recetaOriginalList.addAll(recetaList);
+    }
+
+    public ArrayList<Receta> getRecetaOriginalList() {
+        return recetaOriginalList;
+    }
+
+    public void setRecetaOriginalList(ArrayList<Receta> recetaOriginalList) {
+        this.recetaOriginalList = recetaOriginalList;
+    }
+
+    public List<Receta> getRecetaList() {
+        return recetaList;
+    }
+
+    public void setRecetaList(List<Receta> recetaList) {
+        this.recetaList = recetaList;
     }
 
     @NonNull

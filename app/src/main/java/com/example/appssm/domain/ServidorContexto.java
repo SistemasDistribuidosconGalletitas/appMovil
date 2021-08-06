@@ -28,12 +28,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServidorContexto {
 
-
     public ServidorContexto() {
     }
 
     // consultar recetas a web
-
     public static void findDataBaseWebRecetas(Context context, Repository repository, int id) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -67,7 +65,6 @@ public class ServidorContexto {
     }
 
     // consultar medicamentos desde el servidor web
-
     public static void findDataBaseWebMedicamento(Context context, Repository repository) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://sistema-medico-app.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -105,35 +102,29 @@ public class ServidorContexto {
     }
 
 
-    //    crear receta - crearReceta()
+    //    crear receta
     public static void crearReceta(Repository repository,Receta receta){
         repository.insertRecetaLocalDb(receta);
     }
 
-    // crear los medicamentos - crearMedicamentos()
+    // crear los medicamentos
     public static void crearMedicamentos(Repository repository, Medicamento medicamento){
         repository.insertMedicamentoLocalDb(medicamento);
-
     }
 
     //    checar codigo QR de medicamento - checarQR()
     //    modificar fechas (en caso de cambio por retraso de aplicacion de medicamento) - modificarFechas()
 
-    //    revisar hora de aplicacion (para notificacion) - revisarHrAplicacion()
-
-
+    //    revisar hora de aplicacion (para notificacion)
     public static void revisarHrAplicacion(Context context,int hourOfDay, int minute, String nombre, String hora){
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
-
-
         Bundle parmetros = new Bundle();
         parmetros.putString("nombre",nombre);
         parmetros.putString("hora",hora);
-
 
         AlarmManager alarmManager = (AlarmManager)  context.getSystemService(Context.ALARM_SERVICE);
         int requestCode = (int)c.getTimeInMillis()/1000;

@@ -128,23 +128,6 @@ public class LoginActivity extends AppCompatActivity {
             findDataBaseWebMedicamento();
 
 
-
-            List<Medicamento> listMedicamento;
-            // Se activan las notificaciones
-            listReceta = repository.getAllRecetas();
-            for (Receta rec: listReceta) {
-                listMedicamento = repository.getAllMedicamentosByReceta(rec.getIdReceta());
-                for (Medicamento med: listMedicamento) {
-                    String horaAplicacion =  med.getHoraAplicacion();
-                    int hora = Integer.parseInt(horaAplicacion.substring(0,2));
-                    int min = Integer.parseInt(horaAplicacion.substring(3,5));
-                    Log.i("HORA", String.valueOf(hora));
-                    Log.i("MIN", String.valueOf(min));
-                    onTimeSet(hora,min,med.getNombre(),med.getHoraAplicacion());
-                }
-            }
-
-
             progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.show();
             progressDialog.setContentView(R.layout.progress_dialog);
@@ -157,6 +140,21 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
+                    List<Medicamento> listMedicamento;
+                    // Se activan las notificaciones
+                    listReceta = repository.getAllRecetas();
+                    for (Receta rec: listReceta) {
+                        listMedicamento = repository.getAllMedicamentosByReceta(rec.getIdReceta());
+                        for (Medicamento med: listMedicamento) {
+                            String horaAplicacion =  med.getHoraAplicacion();
+                            int hora = Integer.parseInt(horaAplicacion.substring(0,2));
+                            int min = Integer.parseInt(horaAplicacion.substring(3,5));
+                            Log.i("HORA", String.valueOf(hora));
+                            Log.i("MIN", String.valueOf(min));
+                            //onTimeSet(hora,min,med.getNombre(),med.getHoraAplicacion());
+                            ServidorContexto.revisarHrAplicacion(getApplicationContext(),hora,min,med.getNombre(),med.getHoraAplicacion());
+                        }
+                    }
                     // if you are redirecting from a fragment then use getActivity() as the context.
                     Intent intent = new Intent(LoginActivity.this, RecetasActivity.class);
                     startActivity(intent);

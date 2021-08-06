@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import com.example.appssm.notificacion.AlertReceiver;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +38,6 @@ public class RecetasActivity extends AppCompatActivity {
     Repository repository;
     private List<Receta> list;
     TextView pacienteNombre;
-
     ImageView btn_logout;
 
     private SharedPreferences preferences;
@@ -50,7 +52,6 @@ public class RecetasActivity extends AppCompatActivity {
 
         preferences = getApplicationContext().getSharedPreferences("sesion", Context.MODE_PRIVATE);
         editor = preferences.edit();
-        
 
         recyclerView = findViewById(R.id.rv_receta);
         repository = new Repository(getApplicationContext());
@@ -72,9 +73,7 @@ public class RecetasActivity extends AppCompatActivity {
             }
         );
 
-
         adapter.setOnClickListener(new View.OnClickListener() {
-
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
@@ -119,12 +118,8 @@ public class RecetasActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         finish();
         startActivity(intent);
-
     }
 
     public void cancelar() {
-
     }
-
-
 }

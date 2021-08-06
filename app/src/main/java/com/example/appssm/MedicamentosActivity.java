@@ -49,7 +49,7 @@ public class MedicamentosActivity extends AppCompatActivity {
 
         Bundle parametros = this.getIntent().getExtras();
         int id = parametros.getInt("id");
-        Toast.makeText(this, "Receta: " + id, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Receta: " + id, Toast.LENGTH_SHORT).show();
         recetaId = id;
 
         Usuario usuario = repository.getUsuario();

@@ -69,17 +69,7 @@ public class MedicamentosActivity extends AppCompatActivity {
         list = repository.getAllMedicamentosByReceta(recetaId);
         //list = repository.getAllMedicamentos();
         adapter = new MedicamentoAdapter(list);
-        //adapter = new MedicamentoAdapter(repository.getAllMedicamentos());
-        //setAlarm(list.size());
 
-//        for (Medicamento med : list) {
-//            String horaAplicacion = med.getHoraAplicacion();
-//            int hora = Integer.parseInt(horaAplicacion.substring(0, 2));
-//            int min = Integer.parseInt(horaAplicacion.substring(3, 5));
-//            Log.i("HORA", String.valueOf(hora));
-//            Log.i("MIN", String.valueOf(min));
-//            onTimeSet(hora, min, med.getNombre(), med.getHoraAplicacion());
-//        }
 
         adapter.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
@@ -131,85 +121,6 @@ public class MedicamentosActivity extends AppCompatActivity {
 
     }
 
-    public void sendNotification(String nombre, String hora) {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "CHANNEL_ID")
-                .setSmallIcon(R.drawable.icono_med1)
-                .setContentTitle(nombre)
-                .setContentText("Debes de tomar este medicamento a las " + hora);
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(1, mBuilder.build());
-    }
-
-    public void onTimeSet(int hourOfDay, int minute, String nombre, String hora) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
-
-
-        Bundle parmetros = new Bundle();
-        parmetros.putString("nombre", nombre);
-        parmetros.putString("hora", hora);
-
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        int requestCode = (int) c.getTimeInMillis() / 1000;
-        parmetros.putInt("REQUEST", requestCode);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        intent.putExtras(parmetros);
-        Log.i("Request", String.valueOf(requestCode));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
-
-
-
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-    }
-
-    private void setAlarm(int number) {
-        Bundle parmetros = new Bundle();
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Calendar c = Calendar.getInstance();
-        List<Calendar> calendarList = new ArrayList<>();
-        for (int i = 0; i < number; i++) {
-            String horaAplicacion = list.get(i).getHoraAplicacion();
-            int hora = Integer.parseInt(horaAplicacion.substring(0, 2));
-            int min = Integer.parseInt(horaAplicacion.substring(3, 5));
-
-            c.set(Calendar.HOUR_OF_DAY, 22);
-            c.set(Calendar.MINUTE, (53 + i));
-            c.set(Calendar.SECOND, 0);
-            Log.i("List", String.valueOf(c));
-            calendarList.add(c);
-        }
-        int i = 0;
-        for (Calendar item : calendarList) {
-
-            //item.add(Calendar.MINUTE,(45 + 1));
-            Log.i("Item", String.valueOf(item.getTimeInMillis()));
-            int requestCode = (int) c.getTimeInMillis() / 1000;
-            parmetros.putString("nombre", list.get(i).getNombre());
-            parmetros.putString("hora", list.get(i).getHoraAplicacion());
-            parmetros.putInt("REQUEST", requestCode);
-            Intent intent = new Intent(this, AlertReceiver.class);
-            intent.putExtras(parmetros);
-            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, item.getTimeInMillis(), pendingIntent);
-            i++;
-        }
-    }
-
-
-    private void cancelAlarm() {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
-
-        alarmManager.cancel(pendingIntent);
-        // mTextView.setText("Alarm canceled");
-    }
 
     @Override
     public boolean onPictureInPictureRequested() {

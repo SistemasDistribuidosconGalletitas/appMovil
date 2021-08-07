@@ -132,7 +132,7 @@ public class RecetasActivity extends AppCompatActivity {
     public void mostrarAlerta() {
         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
         dialogo1.setTitle("Importante");
-        dialogo1.setMessage("¿Desea cerrar sesión en ApiMiel?");
+        dialogo1.setMessage("¿Desea cerrar sesión en AppSSM?");
         dialogo1.setCancelable(false);
         dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {

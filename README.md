@@ -22,8 +22,8 @@
 ## ABRIR Y GENERAR EL PROYECTO
 
 Se necesita descargar el archivo zip de este repositorio, el cúal debes descomprimir y 
-guardar en la carpeta de tu preferencia. Posteriormente debes abrir este archivo con Android studio 
-y deberás esperar a que se genere el gradle correctamente, una vez termine te aparecerá que se construyó
+guardar en la carpeta de tu preferencia. Posteriormente, debes cambiarte a la rama dev y abrir esta carpeta con Android studio 
+esperando a que se genere el gradle correctamente, una vez termine te aparecerá que se construyó
 correctamente y podrás iniciarlo en tu emulador o dispositivo móvil.
 
 ## NOTA
